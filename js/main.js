@@ -140,14 +140,11 @@
     });
   }
 
-  // The name shown on the curtain: a project's own title when the link has
-  // one, otherwise the section it leads to.
-  function pageLabel(link, path) {
-    var title = link && link.querySelector("h2");
-    if (title) return title.textContent.trim();
-    var section = path.replace(/^\/+|\/+$/g, "").split("/")[0];
-    var names = { "": "Home", projects: "Projects", about: "About", contact: "Contact" };
-    return names[section] || "Albert";
+  // The main sections get their name on the curtain. Everything else gets a
+  // plain, quicker curtain.
+  function pageLabel(path) {
+    var names = { "/projects": "Projects", "/about": "About", "/contact": "Contact" };
+    return names[path.replace(/\/+$/, "")] || "";
   }
 
   function swap(html) {
@@ -174,7 +171,9 @@
     root.classList.remove("arrived");
     root.classList.add("leaving");
 
-    Promise.all([load(url.pathname), wait(reducedMotion ? 0 : 380)])
+    // With a name on the curtain, hold it long enough to be read.
+    var hold = reducedMotion ? 0 : text ? 750 : 380;
+    Promise.all([load(url.pathname), wait(hold)])
       .then(function (res) {
         swap(res[0]);
         if (push) history.pushState({}, "", url.href);
@@ -213,7 +212,7 @@
     e.preventDefault();
     var here = location.pathname.replace(/\/+$/, "");
     if (hit.url.pathname.replace(/\/+$/, "") === here) return;
-    go(hit.url, pageLabel(hit.a, hit.url.pathname), true);
+    go(hit.url, pageLabel(hit.url.pathname), true);
   });
 
   // Start fetching the next page as soon as a link is hovered or touched.
@@ -226,7 +225,7 @@
 
   window.addEventListener("popstate", function () {
     var url = new URL(location.href);
-    go(url, pageLabel(null, url.pathname), false);
+    go(url, pageLabel(url.pathname), false);
   });
 
   initPage(false);

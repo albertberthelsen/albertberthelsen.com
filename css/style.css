@@ -153,7 +153,7 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 .statusbar a { text-decoration: none; }
 .statusbar a:hover { color: var(--text); }
 
-.status { display: inline-flex; align-items: center; gap: 0.6rem; }
+.status { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
 .status::before {
   content: "";
   width: 6px;
@@ -397,7 +397,7 @@ html.leaving .curtain { animation: curtain-in 0.35s cubic-bezier(0.7, 0, 0.2, 1)
 html.leaving .curtain-label { animation: label-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.12s forwards; }
 
 html.arrived .curtain-label { opacity: 1; }
-html.arrived .curtain { animation: curtain-out 0.45s cubic-bezier(0.7, 0, 0.2, 1) 0.08s forwards; transform: none; }
+html.arrived .curtain { animation: curtain-out 0.5s cubic-bezier(0.7, 0, 0.2, 1) 0.05s forwards; transform: none; }
 
 @keyframes curtain-in {
   from { transform: translateY(101%); }
