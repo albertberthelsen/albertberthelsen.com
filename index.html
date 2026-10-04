@@ -10,40 +10,49 @@
   <meta property="og:description" content="Albert Berthelsen. Finance student at BI Norwegian Business School in Bergen, interested in private equity, investment banking and venture capital.">
   <meta property="og:url" content="https://albertberthelsen.com/">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0c0e12">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,0..100;1,9..144,300..500,0..100&family=JetBrains+Mono:wght@400&display=swap">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="site-name" href="/">Albert Berthelsen</a>
-      <nav class="site-nav" aria-label="Main">
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </div>
+  <canvas id="market" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <span class="mono coords">60.39&deg;N / 5.32&deg;E</span>
+    <span class="mono hide-sm">BI Bergen &middot; Bocconi</span>
   </header>
 
-  <main>
-    <div class="wrap">
-      <p class="eyebrow">Bergen, Norway</p>
-      <h1>Albert Berthelsen</h1>
-      <p class="lede">I study finance at BI Norwegian Business School in Bergen and spent spring 2026 on exchange at Bocconi in Milan. I am working towards a career in private equity, investment banking and venture capital.</p>
-      <p>Alongside my studies, I work in go-to-market at an early-stage B2B SaaS start-up, and I lead business relations for the shipping committee at BI Bergen.</p>
-      <p><a class="text-link" href="/projects">Selected projects &rarr;</a></p>
-    </div>
+  <main class="hero">
+      <p class="mono kicker">Finance &middot; PE / IB / VC</p>
+    <h1 class="display"><span>Albert</span><em>Berthelsen<span class="dot">.</span></em></h1>
+    <p class="mono hero-sub">Bergen<span class="sep">/</span>Milano<span class="sep">&middot;</span>BSc Finance, BI</p>
+    <p class="hero-intro">Finance student at BI Bergen, exchange at Bocconi. Working towards private equity, investment banking and venture capital, with a background in early-stage go-to-market.</p>
+    <nav class="cards" aria-label="Main">
+      <a class="card" href="/projects">
+        <span class="mono">01</span>
+        <span><span class="card-title">Projects</span><span class="mono card-sub">Selected work &middot; 3 entries</span></span>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a class="card" href="/about">
+        <span class="mono">02</span>
+        <span><span class="card-title">About</span><span class="mono card-sub">BI &middot; Bocconi &middot; Clubs</span></span>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+      <a class="card" href="/contact">
+        <span class="mono">03</span>
+        <span><span class="card-title">Contact</span><span class="mono card-sub">Get in touch</span></span>
+        <span class="card-arrow">&rarr;</span>
+      </a>
+    </nav>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>&copy; <span id="year">2026</span> Albert Berthelsen</span>
-      <a href="mailto:albert.berthelsen@gmail.com">albert.berthelsen@gmail.com</a>
-    </div>
+  <footer class="statusbar mono">
+    <span class="status">Open to opportunities</span>
+    <a class="hide-sm" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen@gmail.com</a>
+    <span id="clock">Bergen</span>
   </footer>
 
   <script src="/js/main.js" defer></script>

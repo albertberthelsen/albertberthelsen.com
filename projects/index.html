@@ -10,60 +10,72 @@
   <meta property="og:description" content="Selected projects by Albert Berthelsen.">
   <meta property="og:url" content="https://albertberthelsen.com/projects">
   <meta property="og:type" content="website">
-  <meta name="theme-color" content="#ffffff">
+  <meta name="theme-color" content="#0c0e12">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,0..100;1,9..144,300..500,0..100&family=JetBrains+Mono:wght@400&display=swap">
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <a class="site-name" href="/">Albert Berthelsen</a>
-      <nav class="site-nav" aria-label="Main">
-        <a href="/projects">Projects</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </div>
+  <canvas id="market" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <a class="brand" href="/">Albert <em>Berthelsen</em></a>
+    <nav class="site-nav mono" aria-label="Main">
+      <a href="/projects">Projects</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
   </header>
 
   <main>
     <div class="wrap">
-      <h1>Projects</h1>
+      <p class="mono kicker">Projects</p>
+      <h1>Selected <em>work</em></h1>
       <p class="lede muted">A selection of work from internships, start-ups and my studies.</p>
       <ul class="project-list">
         <li>
           <a href="/projects/ai-gtm-toolkit">
-       <p class="project-meta">Kora Fashion · 2026</p>
-       <h2>AI tools for go-to-market</h2>
-       <p>Lead-sourcing tools and a meeting-prep and onboarding platform, built for a B2B SaaS start-up.</p>
+       <span class="mono idx">01</span>
+       <span>
+         <span class="mono">Kora Fashion · 2026</span>
+         <h2>AI tools for go-to-market</h2>
+         <p>Lead-sourcing tools and a meeting-prep and onboarding platform, built for a B2B SaaS start-up.</p>
+       </span>
+       <span class="card-arrow">&rarr;</span>
           </a>
         </li>
         <li>
           <a href="/projects/vuse-market-research">
-       <p class="project-meta">I Wish · 2025</p>
-       <h2>Market research for a flagship launch</h2>
-       <p>Market and competitor research for VUSE ahead of its flagship store opening in London.</p>
+       <span class="mono idx">02</span>
+       <span>
+         <span class="mono">I Wish · 2025</span>
+         <h2>Market research for a flagship launch</h2>
+         <p>Market and competitor research for VUSE ahead of its flagship store opening in London.</p>
+       </span>
+       <span class="card-arrow">&rarr;</span>
           </a>
         </li>
         <li>
           <a href="/projects/cyber-snails">
-       <p class="project-meta">Co-founder · 2021–2022</p>
-       <h2>Cyber Snails</h2>
-       <p>Co-founded a Web3 project and led the commercial side. Sold out for NOK 6 million on launch day.</p>
+       <span class="mono idx">03</span>
+       <span>
+         <span class="mono">Co-founder · 2021–2022</span>
+         <h2>Cyber Snails</h2>
+         <p>Co-founded a Web3 project and led the commercial side. Sold out for NOK 6 million on launch day.</p>
+       </span>
+       <span class="card-arrow">&rarr;</span>
           </a>
         </li>
       </ul>
     </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap">
-      <span>&copy; <span id="year">2026</span> Albert Berthelsen</span>
-      <a href="mailto:albert.berthelsen@gmail.com">albert.berthelsen@gmail.com</a>
-    </div>
+  <footer class="statusbar mono">
+    <span class="status">Open to opportunities</span>
+    <a class="hide-sm" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen@gmail.com</a>
+    <span id="clock">Bergen</span>
   </footer>
 
   <script src="/js/main.js" defer></script>
