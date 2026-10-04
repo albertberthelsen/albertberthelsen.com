@@ -1,181 +1,234 @@
 (function () {
-  // ---------- Current page in navigation ----------
-  var path = window.location.pathname.replace(/\/+$/, "") || "/";
-  document.querySelectorAll(".site-nav a").forEach(function (link) {
-    var href = link.getAttribute("href").replace(/\/+$/, "");
-    if (path === href || path.indexOf(href + "/") === 0) {
-      link.setAttribute("aria-current", "page");
-    }
-  });
-
-  // ---------- Live Bergen clock ----------
-  var clock = document.getElementById("clock");
-  if (clock) {
-    var fmt = new Intl.DateTimeFormat("en-GB", {
-      hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "Europe/Oslo"
-    });
-    var tick = function () { clock.textContent = fmt.format(new Date()) + " Bergen"; };
-    tick();
-    setInterval(tick, 1000);
-  }
-
-  var year = document.getElementById("year");
-  if (year) year.textContent = new Date().getFullYear();
-
   var root = document.documentElement;
   var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var cameFromNav = root.classList.contains("arriving");
 
-  // ---------- Content reveal ----------
-  var main = document.querySelector("main");
-  if (main) {
-    var container = main.querySelector(".wrap") || main;
-    var items = Array.prototype.slice.call(container.children).filter(function (el) {
-      return el.tagName !== "DIALOG";
-    });
-    var arriving = root.classList.contains("arriving");
-    items.forEach(function (el, i) {
-      el.classList.add("rv");
-      el.style.setProperty("--i", Math.min(i, 8));
-      if (arriving) el.style.setProperty("--d", "220ms");
-    });
+  // ---------- Live Bergen clock ----------
+  var clockFmt = new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false, timeZone: "Europe/Oslo"
+  });
+  function tick() {
+    var clock = document.getElementById("clock");
+    if (clock) clock.textContent = clockFmt.format(new Date()) + " Bergen";
   }
-  requestAnimationFrame(function () { root.classList.add("ready"); });
+  tick();
+  setInterval(tick, 1000);
+
+  // ---------- Per-page setup (runs on load and after every page swap) ----------
+  function initPage(fromNav) {
+    // Current page in navigation
+    var path = location.pathname.replace(/\/+$/, "") || "/";
+    document.querySelectorAll(".site-nav a").forEach(function (link) {
+      var href = link.getAttribute("href").replace(/\/+$/, "");
+      if (path === href || path.indexOf(href + "/") === 0) link.setAttribute("aria-current", "page");
+      else link.removeAttribute("aria-current");
+    });
+
+    var year = document.getElementById("year");
+    if (year) year.textContent = new Date().getFullYear();
+
+    // Content rises into place, one element after another
+    var main = document.querySelector("main");
+    if (main) {
+      var container = main.querySelector(".wrap") || main;
+      Array.prototype.forEach.call(container.children, function (el, i) {
+        if (el.tagName === "DIALOG") return;
+        el.classList.add("rv");
+        el.style.setProperty("--i", Math.min(i, 8));
+        if (fromNav) el.style.setProperty("--d", "180ms");
+      });
+    }
+
+    // Portrait lightbox
+    document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
+      var dialog = document.getElementById(btn.getAttribute("data-lightbox"));
+      if (!dialog || !dialog.showModal) return;
+      btn.addEventListener("click", function () { dialog.showModal(); });
+      dialog.addEventListener("click", function () { dialog.close(); });
+    });
+
+    startWaves(document.getElementById("market"), !fromNav);
+  }
+
+  // ---------- Background: ocean swell (home page only) ----------
+  var waves = null;
+
+  function startWaves(canvas, fadeIn) {
+    if (waves) { waves.stop(); waves = null; }
+    if (!canvas || !canvas.getContext) return;
+
+    var ctx = canvas.getContext("2d");
+    var w, h, raf, start = null, last = 0;
+    var LINES = 18, ACCENT = 11;
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth;
+      h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    // Lower lines sit further apart and move more, like looking out over the sea.
+    function draw(t, alpha) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.lineWidth = 1;
+      for (var i = 0; i < LINES; i++) {
+        var p = i / (LINES - 1);
+        var y0 = h * (0.18 + 0.86 * Math.pow(p, 1.35));
+        var amp = 2 + p * Math.min(18, h * 0.02);
+        ctx.beginPath();
+        for (var x = 0; x <= w + 6; x += 6) {
+          var y = y0
+            + amp * Math.sin(x * 0.006 + t * 1.3 + i * 0.6)
+            + amp * 0.6 * Math.sin(x * 0.013 - t * 0.85 + i * 1.3);
+          x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
+        }
+        ctx.strokeStyle = i === ACCENT
+          ? "rgba(143,176,212," + (0.4 * alpha) + ")"
+          : "rgba(236,231,220," + ((0.05 + p * 0.08) * alpha) + ")";
+        ctx.stroke();
+      }
+    }
+
+    function frame(now) {
+      if (start === null) start = now;
+      // About 30 fps is plenty for motion this slow, and it saves battery.
+      if (now - last > 33) {
+        last = now;
+        var s = (now - start) / 1000;
+        draw(now / 1000, fadeIn ? Math.min(1, s / 1.5) : 1);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    if (reducedMotion) draw(0, 1);
+    else raf = requestAnimationFrame(frame);
+
+    waves = {
+      stop: function () {
+        cancelAnimationFrame(raf);
+        window.removeEventListener("resize", resize);
+      }
+    };
+  }
 
   // ---------- Page transitions ----------
-  if (root.classList.contains("arriving")) {
-    try {
-      sessionStorage.removeItem("ab-nav");
-      sessionStorage.removeItem("ab-label");
-    } catch (e) {}
-    requestAnimationFrame(function () {
-      root.classList.add("arrived");
-      root.classList.remove("arriving");
+  // Pages are fetched and swapped in place instead of reloaded, so the
+  // curtain moves without the browser tearing the page down in between.
+  var cache = {};
+  var busy = false;
+  var label = document.querySelector(".curtain-label");
+
+  function load(path) {
+    if (!cache[path]) {
+      cache[path] = fetch(path, { credentials: "same-origin" }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.text();
+      });
+      cache[path].catch(function () { delete cache[path]; });
+    }
+    return cache[path];
+  }
+
+  function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function nextFrames(n) {
+    return new Promise(function (r) {
+      (function step() { if (n-- <= 0) r(); else requestAnimationFrame(step); })();
     });
   }
 
   // The name shown on the curtain: a project's own title when the link has
   // one, otherwise the section it leads to.
   function pageLabel(link, path) {
-    var title = link.querySelector("h2");
+    var title = link && link.querySelector("h2");
     if (title) return title.textContent.trim();
     var section = path.replace(/^\/+|\/+$/g, "").split("/")[0];
     var names = { "": "Home", projects: "Projects", about: "About", contact: "Contact" };
     return names[section] || "Albert";
   }
 
-  if (!reducedMotion) {
-    document.addEventListener("click", function (e) {
-      var a = e.target.closest("a");
-      if (!a || a.target || a.hasAttribute("download")) return;
-      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      var url = new URL(a.href, location.href);
-      if (url.origin !== location.origin) return;
-      if (url.pathname === location.pathname && url.hash) return;
-      if (url.pathname.replace(/\/+$/, "") === location.pathname.replace(/\/+$/, "")) return;
-      e.preventDefault();
-      var label = pageLabel(a, url.pathname);
-      document.querySelector(".curtain-label").textContent = label;
-      try {
-        sessionStorage.setItem("ab-nav", "1");
-        sessionStorage.setItem("ab-label", label);
-      } catch (err) {}
-      root.classList.remove("arrived");
-      root.classList.add("leaving");
-      setTimeout(function () { location.href = url.href; }, 380);
+  function swap(html) {
+    var doc = new DOMParser().parseFromString(html, "text/html");
+    document.title = doc.title;
+    var desc = doc.querySelector('meta[name="description"]');
+    var ourDesc = document.querySelector('meta[name="description"]');
+    if (desc && ourDesc) ourDesc.setAttribute("content", desc.getAttribute("content"));
+
+    var curtain = document.querySelector(".curtain");
+    Array.prototype.slice.call(document.body.children).forEach(function (el) {
+      if (el !== curtain && el.tagName !== "SCRIPT") el.remove();
+    });
+    Array.prototype.slice.call(doc.body.children).forEach(function (el) {
+      if (el.classList.contains("curtain") || el.tagName === "SCRIPT") return;
+      document.body.insertBefore(document.adoptNode(el), curtain);
     });
   }
 
-  // Fetch the next page as soon as a link is hovered or touched, so it is
-  // ready by the time the curtain has closed.
-  var prefetched = {};
-  function prefetch(e) {
+  function go(url, text, push) {
+    if (busy) return;
+    busy = true;
+    label.textContent = text;
+    root.classList.remove("arrived");
+    root.classList.add("leaving");
+
+    Promise.all([load(url.pathname), wait(reducedMotion ? 0 : 380)])
+      .then(function (res) {
+        swap(res[0]);
+        if (push) history.pushState({}, "", url.href);
+        window.scrollTo(0, 0);
+        initPage(true);
+        // Let the browser finish laying out the new page before the curtain
+        // starts moving, so the first frames of the reveal are smooth.
+        return nextFrames(2);
+      })
+      .then(function () {
+        root.classList.remove("leaving");
+        root.classList.add("arrived");
+        return wait(600);
+      })
+      .then(function () {
+        root.classList.remove("arrived");
+        busy = false;
+      })
+      .catch(function () {
+        location.href = url.href;
+      });
+  }
+
+  function internalLink(e) {
     var a = e.target.closest && e.target.closest("a");
-    if (!a || a.target) return;
+    if (!a || a.target || a.hasAttribute("download")) return null;
     var url = new URL(a.href, location.href);
-    if (url.origin !== location.origin || prefetched[url.pathname]) return;
-    prefetched[url.pathname] = true;
-    var link = document.createElement("link");
-    link.rel = "prefetch";
-    link.href = url.pathname;
-    document.head.appendChild(link);
+    if (url.origin !== location.origin) return null;
+    return { a: a, url: url };
+  }
+
+  document.addEventListener("click", function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var hit = internalLink(e);
+    if (!hit) return;
+    e.preventDefault();
+    var here = location.pathname.replace(/\/+$/, "");
+    if (hit.url.pathname.replace(/\/+$/, "") === here) return;
+    go(hit.url, pageLabel(hit.a, hit.url.pathname), true);
+  });
+
+  // Start fetching the next page as soon as a link is hovered or touched.
+  function prefetch(e) {
+    var hit = internalLink(e);
+    if (hit) load(hit.url.pathname);
   }
   document.addEventListener("mouseover", prefetch);
   document.addEventListener("touchstart", prefetch, { passive: true });
 
-  // Coming back with the browser's back button can restore the page with the
-  // curtain still closed, so reset it.
-  window.addEventListener("pageshow", function (e) {
-    if (e.persisted) root.classList.remove("leaving", "arriving");
+  window.addEventListener("popstate", function () {
+    var url = new URL(location.href);
+    go(url, pageLabel(null, url.pathname), false);
   });
 
-  // ---------- Portrait lightbox ----------
-  document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
-    var dialog = document.getElementById(btn.getAttribute("data-lightbox"));
-    if (!dialog || !dialog.showModal) return;
-    btn.addEventListener("click", function () { dialog.showModal(); });
-    dialog.addEventListener("click", function () { dialog.close(); });
-  });
-
-  // ---------- Background: slow ocean swell ----------
-  var canvas = document.getElementById("market");
-  if (!canvas || !canvas.getContext) return;
-  var ctx = canvas.getContext("2d");
-  var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  var w, h, dpr;
-  function resize() {
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    w = window.innerWidth;
-    h = window.innerHeight;
-    canvas.width = w * dpr;
-    canvas.height = h * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-
-  // Horizontal swell lines. Lower lines sit further apart and move more,
-  // which gives a sense of looking out over the sea.
-  var LINES = 18, ACCENT = 11;
-  function draw(t, alpha) {
-    ctx.clearRect(0, 0, w, h);
-    ctx.lineWidth = 1;
-    for (var i = 0; i < LINES; i++) {
-      var p = i / (LINES - 1);
-      var y0 = h * (0.18 + 0.86 * Math.pow(p, 1.35));
-      var amp = 2 + p * Math.min(18, h * 0.02);
-      ctx.beginPath();
-      for (var x = 0; x <= w + 6; x += 6) {
-        var y = y0
-          + amp * Math.sin(x * 0.006 + t * 1.3 + i * 0.6)
-          + amp * 0.6 * Math.sin(x * 0.013 - t * 0.85 + i * 1.3);
-        x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
-      }
-      ctx.strokeStyle = i === ACCENT
-        ? "rgba(143,176,212," + (0.4 * alpha) + ")"
-        : "rgba(236,231,220," + ((0.05 + p * 0.08) * alpha) + ")";
-      ctx.stroke();
-    }
-  }
-
-  resize();
-  if (reduced) {
-    draw(0, 1);
-    window.addEventListener("resize", function () { resize(); draw(0, 1); });
-    return;
-  }
-  window.addEventListener("resize", resize);
-
-  // About 30 fps is plenty for motion this slow, and it saves battery.
-  var start = null, last = 0;
-  function frame(now) {
-    if (start === null) start = now;
-    if (now - last > 33) {
-      last = now;
-      var s = (now - start) / 1000;
-      // Wall-clock phase keeps the waves continuous from one page to the next.
-      draw(Date.now() / 1000 % 3600, cameFromNav ? 1 : Math.min(1, s / 1.5));
-    }
-    requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
+  initPage(false);
+  requestAnimationFrame(function () { root.classList.add("ready"); });
 })();
