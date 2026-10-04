@@ -303,3 +303,6 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.topbar-right a { text-decoration: none; }
+.topbar-right a:hover { color: var(--text); }
