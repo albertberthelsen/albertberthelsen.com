@@ -177,12 +177,18 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 
 
 .hero-intro {
-  max-width: 34rem;
-  font-size: 1.1rem;
-  color: var(--text);
-  opacity: 0.85;
+  max-width: 40rem;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  color: var(--muted);
   margin-bottom: 3.5rem;
 }
+.hero-intro .hl { color: var(--text); }
+.hero-intro a.hl {
+  text-decoration: underline;
+  text-decoration-color: var(--rule-strong);
+}
+.hero-intro a.hl:hover { text-decoration-color: var(--accent); }
 
 /* Index cards */
 .cards {
