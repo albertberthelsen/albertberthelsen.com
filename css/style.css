@@ -161,16 +161,6 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 .statusbar a { text-decoration: none; }
 .statusbar a:hover { color: var(--text); }
 
-.status { display: inline-flex; align-items: center; gap: 0.6rem; text-decoration: none; }
-.status::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  animation: pulse 2.4s ease-in-out infinite;
-}
-@keyframes pulse { 50% { opacity: 0.25; } }
 
 /* ---------- Home hero ---------- */
 .hero { display: flex; flex-direction: column; justify-content: center; padding-top: 3rem; }
@@ -185,8 +175,6 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 .display em { padding-left: 0.35em; }
 .display .dot { display: inline; color: var(--accent); font-style: normal; }
 
-.hero-sub { margin: 0 0 3.5rem; line-height: 2; }
-.hero-sub .sep { color: var(--accent); margin: 0 0.75em; }
 
 .hero-intro {
   max-width: 34rem;
@@ -199,7 +187,7 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 /* Index cards */
 .cards {
   display: grid;
-  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   max-width: 64rem;
   border: 1px solid var(--rule-strong);
   background: rgba(12, 14, 18, 0.6);
@@ -293,10 +281,8 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
   .topbar { padding-top: 1.25rem; padding-bottom: 1.25rem; }
   .site-nav { gap: 1.25rem; }
   main { padding-top: 2.5rem; padding-bottom: 4rem; }
-  .hero { padding-top: 1rem; }
+  .hero { padding-top: 2.5rem; }
   .kicker::before { width: 2.5rem; }
-  .hero-top { gap: 0.6rem; }
-  .hero-schools { width: 100%; padding-left: 3.75rem; }
   .display em { padding-left: 0.2em; }
   .card { padding: 1.3rem 1.1rem; }
   .card-title { font-size: 1.6rem; }
@@ -313,17 +299,7 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-.hero-top {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem 2rem;
-  margin-bottom: 2rem;
-}
-.hero-top .kicker, .hero-schools { margin: 0; }
-.hero-schools a { text-decoration: none; }
-.hero-schools a:hover { color: var(--text); }
+
 
 /* Footer links */
 .foot-links { display: inline-flex; gap: 1.5rem; }
@@ -508,9 +484,6 @@ html.arrived .curtain { animation: curtain-out 0.5s cubic-bezier(0.7, 0, 0.2, 1)
 .photo figcaption { margin-top: 0.75rem; font-size: 0.65rem; line-height: 1.8; }
 
 /* ---------- Guided flow ---------- */
-.card-primary { background: rgba(143, 176, 212, 0.06); }
-.card-primary .card-title { font-size: 2.4rem; }
-.card-start { display: block; margin-bottom: 0.35rem; color: var(--accent); font-size: 0.62rem; }
 
 .next {
   display: grid;
