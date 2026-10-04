@@ -306,3 +306,30 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 
 .topbar-right a { text-decoration: none; }
 .topbar-right a:hover { color: var(--text); }
+
+/* Footer links */
+.foot-links { display: inline-flex; gap: 1.5rem; }
+
+/* About header with portrait */
+.about-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 15rem;
+  gap: 2.5rem;
+  align-items: end;
+}
+.portrait { margin: 0; }
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center 15%;
+  filter: saturate(0.85);
+  border: 1px solid var(--rule-strong);
+}
+
+@media (max-width: 40rem) {
+  .about-head { grid-template-columns: 1fr; gap: 1.5rem; }
+  .portrait { order: -1; max-width: 16rem; }
+}
