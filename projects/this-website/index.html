@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>This website — Albert Berthelsen</title>
+  <meta name="description" content="Designed and shipped albertberthelsen.com in plain HTML, CSS and JavaScript, with no framework, using AI-assisted development.">
+  <link rel="canonical" href="https://albertberthelsen.com/projects/this-website">
+  <meta property="og:title" content="This website — Albert Berthelsen">
+  <meta property="og:description" content="Designed and shipped albertberthelsen.com in plain HTML, CSS and JavaScript, with no framework, using AI-assisted development.">
+  <meta property="og:url" content="https://albertberthelsen.com/projects/this-website">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Albert Berthelsen">
+  <meta property="og:image" content="https://albertberthelsen.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Albert Berthelsen, finance student in Bergen">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://albertberthelsen.com/og-image.jpg">
+  <meta name="theme-color" content="#0c0e12">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,0..100;1,9..144,300..500,0..100&family=JetBrains+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="/css/style.css">
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <canvas id="market" aria-hidden="true"></canvas>
+
+  <header class="topbar">
+    <a class="brand" href="/">Albert <em>Berthelsen</em></a>
+    <nav class="site-nav mono" aria-label="Main">
+      <a href="/projects">Projects</a>
+      <a href="/about">About</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <p class="mono kicker">Personal project &middot; 2026</p>
+      <h1>This website</h1>
+      <p class="lede">Designed and shipped albertberthelsen.com in plain HTML, CSS and JavaScript, with no framework, using AI-assisted development.</p>
+      <dl class="facts">
+        <dt class="mono">Stack</dt><dd>HTML, CSS, JavaScript</dd>
+        <dt class="mono">Hosting</dt><dd>Vercel, custom domain</dd>
+        <dt class="mono">Built with</dt><dd>Claude Code (AI-assisted development)</dd>
+        <dt class="mono">Code</dt><dd><a href="https://github.com/albertberthelsen/albertberthelsen.com" target="_blank" rel="noopener">github.com/albertberthelsen</a></dd>
+      </dl>
+      <h2>Background</h2>
+      <p>I wanted a home online that says more than a CV can: what I have worked on, what I took from it and how to reach me. I also wanted to build it myself rather than fill in a template.</p>
+
+      <h2>How it is built</h2>
+      <ul>
+        <li><strong>No framework.</strong> Every page is plain HTML with one stylesheet and one small script, so the site loads fast and is easy to maintain.</li>
+        <li><strong>Design.</strong> A dark, editorial look with Fraunces for headings and a monospace face for labels. It is built mobile-first and tested at phone and desktop widths.</li>
+        <li><strong>The chart in the background.</strong> Drawn on a canvas from a seeded random walk, so it looks like a price chart and stays the same on every visit.</li>
+        <li><strong>Shipping.</strong> Version-controlled with Git, hosted on Vercel and served on my own domain over HTTPS.</li>
+      </ul>
+
+      <h2>What I took from it</h2>
+      <p>I built the site with an AI coding agent, directing the design, the content and each step from an empty folder to a live domain. It is the same approach that I use at Kora: with the right tools, someone who is not a full-time engineer can still ship real software, as long as they know what they want and check the result.</p>
+      <a class="mono back" href="/projects">&larr; All projects</a>
+    </div>
+  </main>
+
+  <footer class="statusbar mono">
+    <span class="status">Open to opportunities</span>
+    <span class="foot-links"><a class="hide-sm" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen@gmail.com</a><a href="https://www.linkedin.com/in/albert-berthelsen-7a202219b" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/albertberthelsen" target="_blank" rel="noopener">GitHub</a></span>
+    <span id="clock">Bergen</span>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>
