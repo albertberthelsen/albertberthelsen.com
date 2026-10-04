@@ -37,7 +37,7 @@
     items.forEach(function (el, i) {
       el.classList.add("rv");
       el.style.setProperty("--i", Math.min(i, 8));
-      if (arriving) el.style.setProperty("--d", "550ms");
+      if (arriving) el.style.setProperty("--d", "220ms");
     });
   }
   requestAnimationFrame(function () { root.classList.add("ready"); });
@@ -82,9 +82,26 @@
       } catch (err) {}
       root.classList.remove("arrived");
       root.classList.add("leaving");
-      setTimeout(function () { location.href = url.href; }, 800);
+      setTimeout(function () { location.href = url.href; }, 380);
     });
   }
+
+  // Fetch the next page as soon as a link is hovered or touched, so it is
+  // ready by the time the curtain has closed.
+  var prefetched = {};
+  function prefetch(e) {
+    var a = e.target.closest && e.target.closest("a");
+    if (!a || a.target) return;
+    var url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || prefetched[url.pathname]) return;
+    prefetched[url.pathname] = true;
+    var link = document.createElement("link");
+    link.rel = "prefetch";
+    link.href = url.pathname;
+    document.head.appendChild(link);
+  }
+  document.addEventListener("mouseover", prefetch);
+  document.addEventListener("touchstart", prefetch, { passive: true });
 
   // Coming back with the browser's back button can restore the page with the
   // curtain still closed, so reset it.

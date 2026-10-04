@@ -377,6 +377,7 @@ h3 a.ext:hover { color: var(--accent); }
   background: #14171d;
   border-top: 1px solid var(--accent);
   transform: translateY(101%);
+  will-change: transform;
 }
 
 .curtain-label {
@@ -392,13 +393,13 @@ h3 a.ext:hover { color: var(--accent); }
 }
 .curtain-label:not(:empty)::after { content: "."; font-style: normal; color: var(--accent); }
 
-html.leaving .curtain { animation: curtain-in 0.55s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
-html.leaving .curtain-label { animation: label-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
+html.leaving .curtain { animation: curtain-in 0.35s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+html.leaving .curtain-label { animation: label-in 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) 0.12s forwards; }
 
 html.arriving .curtain { transform: none; }
 html.arriving .curtain-label,
 html.arrived .curtain-label { opacity: 1; }
-html.arrived .curtain { animation: curtain-out 0.7s cubic-bezier(0.7, 0, 0.2, 1) 0.25s forwards; transform: none; }
+html.arrived .curtain { animation: curtain-out 0.45s cubic-bezier(0.7, 0, 0.2, 1) 0.08s forwards; transform: none; }
 
 @keyframes curtain-in {
   from { transform: translateY(101%); }
@@ -416,12 +417,12 @@ html.arrived .curtain { animation: curtain-out 0.7s cubic-bezier(0.7, 0, 0.2, 1)
 /* Content rises into place, one element after another */
 .js .rv { opacity: 0; }
 .js.ready .rv {
-  animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 45ms + var(--d, 0ms));
 }
 @keyframes rise {
-  from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
-  to { opacity: 1; transform: none; filter: none; }
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
 }
 
 /* ---------- Portrait lightbox ---------- */
