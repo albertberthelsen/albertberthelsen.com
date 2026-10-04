@@ -125,13 +125,7 @@ strong { font-weight: 600; }
   padding: 1.75rem var(--gutter);
 }
 
-.coords { display: inline-flex; align-items: center; gap: 0.75rem; }
-.coords::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-}
+.topbar-right { margin-left: auto; }
 
 .brand {
   font-family: var(--serif);
