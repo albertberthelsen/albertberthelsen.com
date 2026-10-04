@@ -37,18 +37,31 @@
     items.forEach(function (el, i) {
       el.classList.add("rv");
       el.style.setProperty("--i", Math.min(i, 8));
-      if (arriving) el.style.setProperty("--d", "300ms");
+      if (arriving) el.style.setProperty("--d", "550ms");
     });
   }
   requestAnimationFrame(function () { root.classList.add("ready"); });
 
   // ---------- Page transitions ----------
   if (root.classList.contains("arriving")) {
-    try { sessionStorage.removeItem("ab-nav"); } catch (e) {}
+    try {
+      sessionStorage.removeItem("ab-nav");
+      sessionStorage.removeItem("ab-label");
+    } catch (e) {}
     requestAnimationFrame(function () {
       root.classList.add("arrived");
       root.classList.remove("arriving");
     });
+  }
+
+  // The name shown on the curtain: a project's own title when the link has
+  // one, otherwise the section it leads to.
+  function pageLabel(link, path) {
+    var title = link.querySelector("h2");
+    if (title) return title.textContent.trim();
+    var section = path.replace(/^\/+|\/+$/g, "").split("/")[0];
+    var names = { "": "Home", projects: "Projects", about: "About", contact: "Contact" };
+    return names[section] || "Albert";
   }
 
   if (!reducedMotion) {
@@ -61,10 +74,15 @@
       if (url.pathname === location.pathname && url.hash) return;
       if (url.pathname.replace(/\/+$/, "") === location.pathname.replace(/\/+$/, "")) return;
       e.preventDefault();
-      try { sessionStorage.setItem("ab-nav", "1"); } catch (err) {}
+      var label = pageLabel(a, url.pathname);
+      document.querySelector(".curtain-label").textContent = label;
+      try {
+        sessionStorage.setItem("ab-nav", "1");
+        sessionStorage.setItem("ab-label", label);
+      } catch (err) {}
       root.classList.remove("arrived");
       root.classList.add("leaving");
-      setTimeout(function () { location.href = url.href; }, 550);
+      setTimeout(function () { location.href = url.href; }, 800);
     });
   }
 
@@ -111,8 +129,8 @@
       ctx.beginPath();
       for (var x = 0; x <= w + 6; x += 6) {
         var y = y0
-          + amp * Math.sin(x * 0.006 + t * 0.8 + i * 0.6)
-          + amp * 0.6 * Math.sin(x * 0.013 - t * 0.5 + i * 1.3);
+          + amp * Math.sin(x * 0.006 + t * 1.3 + i * 0.6)
+          + amp * 0.6 * Math.sin(x * 0.013 - t * 0.85 + i * 1.3);
         x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
       }
       ctx.strokeStyle = i === ACCENT

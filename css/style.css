@@ -370,32 +370,47 @@ h3 a.ext:hover { color: var(--accent); }
   inset: 0;
   z-index: 50;
   pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 var(--gutter) clamp(2rem, 8vh, 5rem);
+  overflow: hidden;
   background: #14171d;
-  transform: scaleY(0);
+  border-top: 1px solid var(--accent);
+  transform: translateY(101%);
 }
-.curtain::before,
-.curtain::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--accent);
+
+.curtain-label {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 12vw, 9rem);
+  font-style: italic;
+  font-weight: 300;
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  opacity: 0;
 }
-.curtain::before { top: 0; }
-.curtain::after { bottom: 0; }
+.curtain-label:not(:empty)::after { content: "."; font-style: normal; color: var(--accent); }
 
 html.leaving .curtain { animation: curtain-in 0.55s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
-html.arriving .curtain { transform: scaleY(1); }
-html.arrived .curtain { animation: curtain-out 0.65s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+html.leaving .curtain-label { animation: label-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.3s forwards; }
+
+html.arriving .curtain { transform: none; }
+html.arriving .curtain-label,
+html.arrived .curtain-label { opacity: 1; }
+html.arrived .curtain { animation: curtain-out 0.7s cubic-bezier(0.7, 0, 0.2, 1) 0.25s forwards; transform: none; }
 
 @keyframes curtain-in {
-  from { transform: scaleY(0); transform-origin: bottom; }
-  to { transform: scaleY(1); transform-origin: bottom; }
+  from { transform: translateY(101%); }
+  to { transform: none; }
 }
 @keyframes curtain-out {
-  from { transform: scaleY(1); transform-origin: top; }
-  to { transform: scaleY(0); transform-origin: top; }
+  from { transform: none; }
+  to { transform: translateY(-101%); }
+}
+@keyframes label-in {
+  from { opacity: 0; transform: translateY(40%); }
+  to { opacity: 1; transform: none; }
 }
 
 /* Content rises into place, one element after another */
