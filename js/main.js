@@ -46,7 +46,7 @@
       dialog.addEventListener("click", function () { dialog.close(); });
     });
 
-    startWaves(document.getElementById("market"), !fromNav);
+    startWaves(document.getElementById("market"), !waves && !fromNav);
   }
 
   // ---------- Background: ocean swell (home page only) ----------
@@ -167,21 +167,38 @@
   function go(url, text, push) {
     if (busy) return;
     busy = true;
+
+    function show(html, fromCurtain) {
+      swap(html);
+      if (push) history.pushState({}, "", url.href);
+      window.scrollTo(0, 0);
+      initPage(fromCurtain);
+    }
+
+    // Only the main sections get the curtain. Everything else swaps straight
+    // in and lets the content rise into place.
+    if (!text || reducedMotion) {
+      load(url.pathname)
+        .then(function (html) { show(html, false); busy = false; })
+        .catch(function () { location.href = url.href; });
+      return;
+    }
+
     label.textContent = text;
     root.classList.remove("arrived");
     root.classList.add("leaving");
 
-    // With a name on the curtain, hold it long enough to be read.
-    var hold = reducedMotion ? 0 : text ? 750 : 380;
-    Promise.all([load(url.pathname), wait(hold)])
+    // Hold the name just long enough to be read.
+    Promise.all([load(url.pathname), wait(550)])
       .then(function (res) {
-        swap(res[0]);
-        if (push) history.pushState({}, "", url.href);
-        window.scrollTo(0, 0);
-        initPage(true);
-        // Let the browser finish laying out the new page before the curtain
-        // starts moving, so the first frames of the reveal are smooth.
-        return nextFrames(2);
+        show(res[0], true);
+        // Decode the new page's images and let the browser finish layout
+        // before the curtain moves, so the reveal stays smooth.
+        var imgs = Array.prototype.filter.call(document.querySelectorAll("main img"), function (img) {
+          return img.loading !== "lazy" && img.decode;
+        });
+        var decoded = Promise.all(imgs.map(function (img) { return img.decode().catch(function () {}); }));
+        return Promise.race([decoded, wait(250)]).then(function () { return nextFrames(2); });
       })
       .then(function () {
         root.classList.remove("leaving");
