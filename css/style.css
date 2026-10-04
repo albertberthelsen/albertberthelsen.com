@@ -363,3 +363,93 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 a.ext::after { content: "\00a0\2197"; font-size: 0.7em; color: var(--accent); vertical-align: 0.25em; }
 h3 a.ext { text-decoration: none; }
 h3 a.ext:hover { color: var(--accent); }
+
+/* ---------- Page transitions ---------- */
+.curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  background: #14171d;
+  transform: scaleY(0);
+}
+.curtain::before,
+.curtain::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--accent);
+}
+.curtain::before { top: 0; }
+.curtain::after { bottom: 0; }
+
+html.leaving .curtain { animation: curtain-in 0.55s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+html.arriving .curtain { transform: scaleY(1); }
+html.arrived .curtain { animation: curtain-out 0.65s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+
+@keyframes curtain-in {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to { transform: scaleY(1); transform-origin: bottom; }
+}
+@keyframes curtain-out {
+  from { transform: scaleY(1); transform-origin: top; }
+  to { transform: scaleY(0); transform-origin: top; }
+}
+
+/* Content rises into place, one element after another */
+.js .rv { opacity: 0; }
+.js.ready .rv {
+  animation: rise 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 70ms + var(--d, 0ms));
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* ---------- Portrait lightbox ---------- */
+.portrait-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: zoom-in;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.portrait-btn:hover { transform: scale(1.04); }
+.portrait-btn .portrait { display: block; }
+
+.lightbox {
+  max-width: min(92vw, 30rem);
+  max-height: 92vh;
+  padding: 0;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  overflow: visible;
+}
+.lightbox[open] { animation: zoom-in 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.lightbox::backdrop { background: rgba(6, 7, 9, 0.85); backdrop-filter: blur(4px); }
+.lightbox img { display: block; width: 100%; height: auto; max-height: 92vh; object-fit: contain; cursor: zoom-out; }
+.lightbox-close {
+  position: absolute;
+  top: -2.25rem;
+  right: 0;
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.lightbox-close:hover { color: var(--text); }
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.94); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .rv { opacity: 1; }
+  .curtain { display: none; }
+}

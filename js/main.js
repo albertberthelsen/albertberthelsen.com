@@ -22,6 +22,66 @@
   var year = document.getElementById("year");
   if (year) year.textContent = new Date().getFullYear();
 
+  var root = document.documentElement;
+  var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cameFromNav = root.classList.contains("arriving");
+
+  // ---------- Content reveal ----------
+  var main = document.querySelector("main");
+  if (main) {
+    var container = main.querySelector(".wrap") || main;
+    var items = Array.prototype.slice.call(container.children).filter(function (el) {
+      return el.tagName !== "DIALOG";
+    });
+    var arriving = root.classList.contains("arriving");
+    items.forEach(function (el, i) {
+      el.classList.add("rv");
+      el.style.setProperty("--i", Math.min(i, 8));
+      if (arriving) el.style.setProperty("--d", "300ms");
+    });
+  }
+  requestAnimationFrame(function () { root.classList.add("ready"); });
+
+  // ---------- Page transitions ----------
+  if (root.classList.contains("arriving")) {
+    try { sessionStorage.removeItem("ab-nav"); } catch (e) {}
+    requestAnimationFrame(function () {
+      root.classList.add("arrived");
+      root.classList.remove("arriving");
+    });
+  }
+
+  if (!reducedMotion) {
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest("a");
+      if (!a || a.target || a.hasAttribute("download")) return;
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var url = new URL(a.href, location.href);
+      if (url.origin !== location.origin) return;
+      if (url.pathname === location.pathname && url.hash) return;
+      if (url.pathname.replace(/\/+$/, "") === location.pathname.replace(/\/+$/, "")) return;
+      e.preventDefault();
+      try { sessionStorage.setItem("ab-nav", "1"); } catch (err) {}
+      root.classList.remove("arrived");
+      root.classList.add("leaving");
+      setTimeout(function () { location.href = url.href; }, 550);
+    });
+  }
+
+  // Coming back with the browser's back button can restore the page with the
+  // curtain still closed, so reset it.
+  window.addEventListener("pageshow", function (e) {
+    if (e.persisted) root.classList.remove("leaving", "arriving");
+  });
+
+  // ---------- Portrait lightbox ----------
+  document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
+    var dialog = document.getElementById(btn.getAttribute("data-lightbox"));
+    if (!dialog || !dialog.showModal) return;
+    btn.addEventListener("click", function () { dialog.showModal(); });
+    dialog.addEventListener("click", function () { dialog.close(); });
+  });
+
   // ---------- Background: slow ocean swell ----------
   var canvas = document.getElementById("market");
   if (!canvas || !canvas.getContext) return;
@@ -51,8 +111,8 @@
       ctx.beginPath();
       for (var x = 0; x <= w + 6; x += 6) {
         var y = y0
-          + amp * Math.sin(x * 0.006 + t * 0.35 + i * 0.6)
-          + amp * 0.6 * Math.sin(x * 0.013 - t * 0.22 + i * 1.3);
+          + amp * Math.sin(x * 0.006 + t * 0.8 + i * 0.6)
+          + amp * 0.6 * Math.sin(x * 0.013 - t * 0.5 + i * 1.3);
         x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
       }
       ctx.strokeStyle = i === ACCENT
@@ -77,7 +137,8 @@
     if (now - last > 33) {
       last = now;
       var s = (now - start) / 1000;
-      draw(s, Math.min(1, s / 1.5));
+      // Wall-clock phase keeps the waves continuous from one page to the next.
+      draw(Date.now() / 1000 % 3600, cameFromNav ? 1 : Math.min(1, s / 1.5));
     }
     requestAnimationFrame(frame);
   }

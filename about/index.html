@@ -11,12 +11,12 @@
   <meta property="og:url" content="https://albertberthelsen.com/about">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Albert Berthelsen">
-  <meta property="og:image" content="https://albertberthelsen.com/og.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+  <meta property="og:image" content="https://albertberthelsen.com/og-portrait.jpg">
+  <meta property="og:image:width" content="878">
+  <meta property="og:image:height" content="1098">
   <meta property="og:image:alt" content="Hi, I’m Albert. Finance student in Bergen.">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://albertberthelsen.com/og.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://albertberthelsen.com/og-portrait.jpg">
   <meta name="theme-color" content="#0c0e12">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
@@ -24,11 +24,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..500,0..100;1,9..144,300..500,0..100&family=JetBrains+Mono:wght@400&display=swap">
+  <script>
+    document.documentElement.classList.add("js");
+    try { if (sessionStorage.getItem("ab-nav")) document.documentElement.classList.add("arriving"); } catch (e) {}
+  </script>
   <link rel="stylesheet" href="/css/style.css">
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
   <canvas id="market" aria-hidden="true"></canvas>
+  <div class="curtain" aria-hidden="true"></div>
 
   <header class="topbar">
     <a class="brand" href="/">Albert <em>Berthelsen</em></a>
@@ -43,9 +48,15 @@
     <div class="wrap">
       <p class="mono kicker">About</p>
       <div class="about-head">
-        <img class="portrait" src="/img/albert-square.jpg" alt="Portrait of Albert Berthelsen" width="480" height="480">
+        <button class="portrait-btn" type="button" aria-label="Show full portrait" data-lightbox="portrait-full">
+          <img class="portrait" src="/img/albert-square.jpg" alt="Portrait of Albert Berthelsen" width="480" height="480">
+        </button>
         <h1>About <em>me</em></h1>
       </div>
+      <dialog class="lightbox" id="portrait-full" aria-label="Portrait of Albert Berthelsen">
+        <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382" loading="lazy">
+        <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+      </dialog>
       <p class="lede">I am a third-year finance student at BI Norwegian Business School in Bergen, with a semester at Bocconi in Milan behind me.</p>
       <p>Most of what I have learned outside the classroom has come from being close to the commercial side of things: selling, talking to customers and building something from nothing. At school I am drawn to the other side of the same question, which is what makes a business valuable, and how you would know.</p>
       <p>I am happiest with a lot going on. Right now that means my degree, a go-to-market role at a Swedish start-up and running business relations for the shipping committee at BI.</p>
