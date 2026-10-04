@@ -328,25 +328,9 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
   box-shadow: 0 0 0 1px var(--rule-strong), 0 0 0 6px var(--bg), 0 0 0 7px rgba(143, 176, 212, 0.35);
 }
 
-/* Now section */
-.now { max-width: 64rem; margin-top: 5rem; }
-.now-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
-.now-list li {
-  display: grid;
-  grid-template-columns: 7rem 1fr;
-  gap: 0 1.5rem;
-  padding: 1rem 0;
-  margin: 0;
-  border-bottom: 1px solid var(--rule);
-}
-.now-list .mono { padding-top: 0.3rem; }
-
 @media (max-width: 34rem) {
   .portrait { width: 5.5rem; height: 5.5rem; }
   .about-head { gap: 1.25rem; }
-  .now { margin-top: 3.5rem; }
-  .now-list li { grid-template-columns: 1fr; }
-  .now-list .mono { padding: 0 0 0.2rem; }
 }
 
 /* External links */
