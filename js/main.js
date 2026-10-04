@@ -47,7 +47,7 @@
   }
 
   var lines = [
-    { data: series(7, 140, 0.03, 0.8), color: "rgba(201,164,92,0.28)", band: [0.25, 0.75], width: 1.2 },
+    { data: series(7, 140, 0.03, 0.8), color: "rgba(143,176,212,0.28)", band: [0.25, 0.75], width: 1.2 },
     { data: series(42, 140, 0.01, 1.0), color: "rgba(236,231,220,0.10)", band: [0.15, 0.9], width: 1 },
     { data: series(1337, 140, -0.004, 0.8), color: "rgba(236,231,220,0.07)", band: [0.35, 0.95], width: 1 }
   ];
@@ -91,7 +91,7 @@
     var a = lines[0], ai = Math.max(1, Math.floor(a.data.length * progress)) - 1;
     var ax = (ai / (a.data.length - 1)) * w;
     var ay = h * (1 - a.band[1]) + (1 - a.data[ai]) * h * (a.band[1] - a.band[0]);
-    ctx.fillStyle = "rgba(201,164,92,0.8)";
+    ctx.fillStyle = "rgba(143,176,212,0.8)";
     ctx.beginPath(); ctx.arc(ax, ay, 2.5, 0, Math.PI * 2); ctx.fill();
   }
 
