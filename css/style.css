@@ -348,3 +348,8 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
   .now-list li { grid-template-columns: 1fr; }
   .now-list .mono { padding: 0 0 0.2rem; }
 }
+
+/* External links */
+a.ext::after { content: "\00a0\2197"; font-size: 0.7em; color: var(--accent); vertical-align: 0.25em; }
+h3 a.ext { text-decoration: none; }
+h3 a.ext:hover { color: var(--accent); }
