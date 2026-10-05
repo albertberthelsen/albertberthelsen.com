@@ -65,7 +65,7 @@ def page(path, title, desc, body, home=False, wide=False):
   {main_close}
 
   <footer class="statusbar mono">
-    <span class="foot-links"><a href="https://www.linkedin.com/in/albert-berthelsen-7a202219b" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/albertberthelsen" target="_blank" rel="noopener">GitHub</a></span>
+    <span class="foot-links"><a href="/contact">Contact</a><a href="https://www.linkedin.com/in/albert-berthelsen-7a202219b" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/albertberthelsen" target="_blank" rel="noopener">GitHub</a></span>
     <span id="clock">Bergen</span>
   </footer>
 
@@ -175,15 +175,9 @@ page("", None,
      """
 <h1 class="display"><span>Albert</span> <em>Berthelsen<span class="dot">.</span></em></h1>
 <p class="hero-intro">I&rsquo;m a finance student at <span class="hl">BI Norwegian Business School</span> in Bergen. Last spring I was on exchange at <span class="hl">Bocconi</span> in Milan. Today I&rsquo;m the first external hire at <a class="hl" href="/projects/ai-gtm-toolkit">Kora Fashion</a>, a B2B SaaS start-up founded by two former Meta employees. I handle sales in Norway and build AI tools for the team. Before that, I spent a summer as a consultant at <a class="hl" href="/projects/vuse-market-research">I Wish</a> in London, and I co-founded <a class="hl" href="/projects/cyber-snails">Cyber Snails</a>. It sold out for NOK 6 million on launch day.</p>
-<nav class="cards" aria-label="Main">
+<nav class="cards cards-single" aria-label="Main">
   <a class="card" href="/projects">
-    <span class="mono">01</span>
-    <span><span class="card-title">Projects</span><span class="mono card-sub">Selected work &middot; 3 entries</span></span>
-    <span class="card-arrow">&rarr;</span>
-  </a>
-  <a class="card" href="/contact">
-    <span class="mono">02</span>
-    <span><span class="card-title">Contact</span><span class="mono card-sub">Get in touch</span></span>
+    <span><span class="card-title">Projects</span><span class="mono card-sub">3 selected projects</span></span>
     <span class="card-arrow">&rarr;</span>
   </a>
 </nav>

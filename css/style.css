@@ -604,3 +604,8 @@ a.ext { white-space: nowrap; }
   from { transform: translateX(100%); }
   to { transform: none; }
 }
+
+/* Home: a single way in */
+.cards-single { grid-template-columns: 1fr; max-width: 30rem; }
+.cards-single .card { grid-template-columns: 1fr auto; padding: 1.9rem 1.75rem; }
+.cards-single .card-title { font-size: 2.4rem; }
