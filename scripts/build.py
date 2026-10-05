@@ -190,11 +190,11 @@ items = "\n".join(
     f"""  <li>
     <a href="/projects/{p['slug']}">
       <span class="mono idx">{i:02d}</span>
-      <span>
-        <span class="mono">{p['meta']}</span>
+      <span class="pl-main">
         <h2>{p['title']}</h2>
         <p>{p['summary']}</p>
       </span>
+      <span class="mono pl-meta">{p['meta']}</span>
       <span class="card-arrow">&rarr;</span>
     </a>
   </li>""" for i, p in enumerate(projects, 1))
@@ -206,7 +206,7 @@ page("projects", "Projects",
      {items}
      </ul>
      {next_link("/contact", "Next", "Contact")}
-     """.replace("\n     ", "\n"))
+     """.replace("\n     ", "\n"), wide=True)
 
 # ---------- Project pages ----------
 for n, p in enumerate(projects):
@@ -219,13 +219,19 @@ for n, p in enumerate(projects):
          f"""
 <p class="mono kicker">{p['meta']}</p>
 <h1>{p['title']}</h1>
+<div class="project-layout">
+<aside class="project-facts">
 <dl class="facts">
 {facts}
 </dl>
+</aside>
+<div class="project-body">
 {textwrap.dedent(p['body']).strip()}
 {nxt}
 <a class="mono back" href="/projects">&larr; All projects</a>
-""")
+</div>
+</div>
+""", wide=True)
 
 # ---------- About (shown in a panel on the contact page) ----------
 ABOUT = """
@@ -280,17 +286,17 @@ page("contact", "Contact",
      "Get in touch with Albert Berthelsen.",
      """
 <p class="mono kicker">Get in touch</p>
+<h1 class="contact-title">Contact me at <a class="contact-email" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen<wbr>@gmail.com</a></h1>
 <div class="contact-grid">
   <figure class="contact-photo">
     <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382">
   </figure>
+  <div class="contact-side">
   <dl class="contact-facts">
     <dt class="mono">Based in</dt><dd>Bergen, Norway</dd>
     <dt class="mono">Phone</dt><dd><a href="tel:+4746802628">+47 468 02 628</a></dd>
     <dt class="mono">LinkedIn</dt><dd><a href="https://www.linkedin.com/in/albert-berthelsen-7a202219b" target="_blank" rel="noopener">albert-berthelsen</a></dd>
   </dl>
-  <div class="contact-cta">
-    <h1>Contact me<br>at <a class="contact-email" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen<wbr>@gmail.com</a></h1>
     <div class="cta-row">
       <a class="send mono" href="mailto:albert.berthelsen@gmail.com">Send a message &rarr;</a>
       <button class="send send-ghost mono" type="button" data-dialog="about-me">More about me</button>
