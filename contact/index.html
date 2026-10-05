@@ -35,7 +35,6 @@
     <a class="brand" href="/">Albert <em>Berthelsen</em></a>
     <nav class="site-nav mono" aria-label="Main">
       <a href="/projects">Projects</a>
-      <a href="/about">About</a>
       <a href="/contact">Contact</a>
     </nav>
   </header>
@@ -54,9 +53,64 @@
         </dl>
         <div class="contact-cta">
           <h1>Contact me<br>at <a class="contact-email" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen<wbr>@gmail.com</a></h1>
-          <a class="send mono" href="mailto:albert.berthelsen@gmail.com">Send a message <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></svg></a>
+          <div class="cta-row">
+            <a class="send mono" href="mailto:albert.berthelsen@gmail.com">Send a message <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></svg></a>
+            <button class="send send-ghost mono" type="button" data-dialog="about-me">More about me</button>
+          </div>
         </div>
       </div>
+      <dialog class="drawer" id="about-me" aria-label="More about Albert">
+        <div class="drawer-inner">
+          <div class="drawer-head">
+            <p class="mono kicker">About</p>
+            <button class="lightbox-close mono" type="button" data-close>Close</button>
+          </div>
+          <p class="lede">Most of my experience so far is commercial. I&rsquo;ve sold, researched markets for clients and helped build something from scratch. At school I&rsquo;ve worked on the other side of the same question: how you put a value on a business. I want a career where I use both.</p>
+
+          <h2>Education</h2>
+
+          <div class="entry">
+            <span class="mono entry-date">2024 to 2027</span>
+            <div>
+            <h3><a class="ext" href="https://www.bi.no/" target="_blank" rel="noopener">BI Norwegian Business School</a></h3>
+            <p class="entry-role">Bachelor in Finance, Bergen</p>
+            <p>GPA 4.75 / 5. My courses include corporate finance, financial modelling, statistics and financial econometrics, which together cover most of what goes into valuing a company.</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="mono entry-date">Feb to May 2026</span>
+            <div>
+            <h3><a class="ext" href="https://www.unibocconi.it/en" target="_blank" rel="noopener">Università Bocconi</a></h3>
+            <p class="entry-role">Exchange semester, Milan</p>
+            <p>Final grade 26 / 30. I took Business Valuation, Fintech for Banking, and Macroeconomics and the World Economy.</p>
+            </div>
+          </div>
+
+          <h2>Student organisations</h2>
+
+          <div class="entry">
+            <span class="mono entry-date">Since 2024</span>
+            <div>
+            <h3><a class="ext" href="https://www.linkedin.com/company/shippingutvalgetbi/" target="_blank" rel="noopener">Shippingutvalget</a></h3>
+            <p class="entry-role">Head of Business Contact</p>
+            <p>The shipping committee at BI Bergen. I&rsquo;m responsible for our contact with the shipping industry in the city. In practice, that means building relationships with companies and arranging company visits for our 35 members.</p>
+            </div>
+          </div>
+
+          <div class="entry">
+            <span class="mono entry-date">2025 to 2026</span>
+            <div>
+            <h3><a class="ext" href="https://www.linkedin.com/company/bi-bergen-case-club/" target="_blank" rel="noopener">BISO Bergen Case Club</a></h3>
+            <p class="entry-role">Business Relations Manager</p>
+            <p>I was responsible for our relationships with consulting firms. I reached out to new companies, built partnerships and arranged company visits for our members.</p>
+            </div>
+          </div>
+
+          <h2>Outside work</h2>
+          <p>Most of my free time goes to training, mainly running and football, and to time with friends. I also love to travel, and a semester in Milan only made that stronger.</p>
+        </div>
+      </dialog>
     </div>
   </main>
 

@@ -38,13 +38,20 @@
       });
     }
 
-    // Portrait lightbox
-    document.querySelectorAll("[data-lightbox]").forEach(function (btn) {
-      var dialog = document.getElementById(btn.getAttribute("data-lightbox"));
+    // Dialogs: photo lightboxes close on any click, panels only from the
+    // backdrop or the close button.
+    document.querySelectorAll("[data-lightbox], [data-dialog]").forEach(function (btn) {
+      var dialog = document.getElementById(btn.getAttribute("data-lightbox") || btn.getAttribute("data-dialog"));
       if (!dialog || !dialog.showModal) return;
       btn.addEventListener("click", function () { dialog.showModal(); });
-      dialog.addEventListener("click", function () { dialog.close(); });
+      dialog.addEventListener("click", function (e) {
+        if (dialog.classList.contains("lightbox") || e.target === dialog || e.target.closest("[data-close]")) dialog.close();
+      });
     });
+    if (location.hash === "#about") {
+      var about = document.getElementById("about-me");
+      if (about && about.showModal) about.showModal();
+    }
 
     startWaves(document.getElementById("market"), !waves && !fromNav);
     livingName(fromNav);
@@ -239,7 +246,7 @@
   // The main sections get their name on the curtain. Everything else gets a
   // plain, quicker curtain.
   function pageLabel(path) {
-    var names = { "/projects": "Projects", "/about": "About", "/contact": "Contact" };
+    var names = { "/projects": "Projects", "/contact": "Contact" };
     return names[path.replace(/\/+$/, "")] || "";
   }
 

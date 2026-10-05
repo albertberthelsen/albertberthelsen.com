@@ -18,7 +18,6 @@ def page(path, title, desc, body, home=False, wide=False):
     <a class="brand" href="/">Albert <em>Berthelsen</em></a>
     <nav class="site-nav mono" aria-label="Main">
       <a href="/projects">Projects</a>
-      <a href="/about">About</a>
       <a href="/contact">Contact</a>
     </nav>
   </header>"""
@@ -177,18 +176,13 @@ page("", None,
 <h1 class="display"><span>Albert</span> <em>Berthelsen<span class="dot">.</span></em></h1>
 <p class="hero-intro">I&rsquo;m a finance student at <span class="hl">BI Norwegian Business School</span> in Bergen. Last spring I was on exchange at <span class="hl">Bocconi</span> in Milan. Today I&rsquo;m the first external hire at <a class="hl" href="/projects/ai-gtm-toolkit">Kora Fashion</a>, a B2B SaaS start-up founded by two former Meta employees. I handle sales in Norway and build AI tools for the team. Before that, I spent a summer as a consultant at <a class="hl" href="/projects/vuse-market-research">I Wish</a> in London, and I co-founded <a class="hl" href="/projects/cyber-snails">Cyber Snails</a>. It sold out for NOK 6 million on launch day.</p>
 <nav class="cards" aria-label="Main">
-  <a class="card" href="/about">
-    <span class="mono">01</span>
-    <span><span class="card-title">About</span><span class="mono card-sub">BI &middot; Bocconi &middot; Clubs</span></span>
-    <span class="card-arrow">&rarr;</span>
-  </a>
   <a class="card" href="/projects">
-    <span class="mono">02</span>
+    <span class="mono">01</span>
     <span><span class="card-title">Projects</span><span class="mono card-sub">Selected work &middot; 3 entries</span></span>
     <span class="card-arrow">&rarr;</span>
   </a>
   <a class="card" href="/contact">
-    <span class="mono">03</span>
+    <span class="mono">02</span>
     <span><span class="card-title">Contact</span><span class="mono card-sub">Get in touch</span></span>
     <span class="card-arrow">&rarr;</span>
   </a>
@@ -237,21 +231,8 @@ for n, p in enumerate(projects):
 <a class="mono back" href="/projects">&larr; All projects</a>
 """)
 
-# ---------- About ----------
-page("about", "About",
-     "Background, education and experience of Albert Berthelsen.",
-     """
-<p class="mono kicker">About</p>
-<div class="about-head">
-  <button class="portrait-btn" type="button" aria-label="Show full portrait" data-lightbox="portrait-full">
-    <img class="portrait" src="/img/albert-square.jpg" alt="Portrait of Albert Berthelsen" width="480" height="480">
-  </button>
-  <h1>About <em>me</em></h1>
-</div>
-<dialog class="lightbox" id="portrait-full" aria-label="Portrait of Albert Berthelsen">
-  <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382" loading="lazy">
-  <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
-</dialog>
+# ---------- About (shown in a panel on the contact page) ----------
+ABOUT = """
 <p class="lede">Most of my experience so far is commercial. I&rsquo;ve sold, researched markets for clients and helped build something from scratch. At school I&rsquo;ve worked on the other side of the same question: how you put a value on a business. I want a career where I use both.</p>
 
 <h2>Education</h2>
@@ -296,7 +277,7 @@ page("about", "About",
 
 <h2>Outside work</h2>
 <p>Most of my free time goes to training, mainly running and football, and to time with friends. I also love to travel, and a semester in Milan only made that stronger.</p>
-""" + next_link("/projects", "Next", "Projects") + "\n")
+"""
 
 # ---------- Contact ----------
 page("contact", "Contact",
@@ -314,9 +295,21 @@ page("contact", "Contact",
   </dl>
   <div class="contact-cta">
     <h1>Contact me<br>at <a class="contact-email" href="mailto:albert.berthelsen@gmail.com">albert.berthelsen<wbr>@gmail.com</a></h1>
-    <a class="send mono" href="mailto:albert.berthelsen@gmail.com">Send a message &rarr;</a>
+    <div class="cta-row">
+      <a class="send mono" href="mailto:albert.berthelsen@gmail.com">Send a message &rarr;</a>
+      <button class="send send-ghost mono" type="button" data-dialog="about-me">More about me</button>
+    </div>
   </div>
 </div>
+<dialog class="drawer" id="about-me" aria-label="More about Albert">
+  <div class="drawer-inner">
+    <div class="drawer-head">
+      <p class="mono kicker">About</p>
+      <button class="lightbox-close mono" type="button" data-close>Close</button>
+    </div>
+""" + textwrap.indent(ABOUT.strip(), "    ") + """
+  </div>
+</dialog>
 """, wide=True)
 
 # ---------- 404 ----------

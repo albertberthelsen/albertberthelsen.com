@@ -4,8 +4,18 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "www.albertberthelsen.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "www.albertberthelsen.com"
+        }
+      ],
       "destination": "https://albertberthelsen.com/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/contact#about",
       "permanent": true
     }
   ]
