@@ -47,6 +47,102 @@
     });
 
     startWaves(document.getElementById("market"), !waves && !fromNav);
+    livingName(fromNav);
+  }
+
+  // ---------- Living name (home page) ----------
+  // Letters get heavier near the cursor or finger. A wave runs through the
+  // name once when the page opens, which is also what touch screens see.
+  var nameFx = null;
+
+  function livingName(fromNav) {
+    if (nameFx) { nameFx.stop(); nameFx = null; }
+    var h1 = document.querySelector(".display");
+    if (!h1 || reducedMotion) return;
+
+    if (!h1.hasAttribute("data-split")) {
+      h1.setAttribute("aria-label", h1.textContent.trim());
+      h1.querySelectorAll("span:not(.dot), em").forEach(function (part) {
+        Array.prototype.slice.call(part.childNodes).forEach(function (node) {
+          if (node.nodeType !== 3) return;
+          var frag = document.createDocumentFragment();
+          node.textContent.split("").forEach(function (c) {
+            var ch = document.createElement("span");
+            ch.className = "ch";
+            ch.setAttribute("aria-hidden", "true");
+            ch.textContent = c;
+            frag.appendChild(ch);
+          });
+          part.replaceChild(frag, node);
+        });
+      });
+      h1.setAttribute("data-split", "");
+    }
+
+    var letters = Array.prototype.slice.call(h1.querySelectorAll(".ch"));
+    var base = letters.map(function (l) { return l.closest("em") ? 300 : 350; });
+    var cur = base.slice();
+    var MAX = 820;
+    var pointer = null, raf = null;
+    var intro = { start: performance.now() + (fromNav ? 250 : 500) };
+
+    function targets(now) {
+      var fs = parseFloat(getComputedStyle(h1).fontSize);
+      var radius = fs * 1.1;
+      var rects = letters.map(function (l) { return l.getBoundingClientRect(); });
+      var sweepX = null;
+      if (intro && !pointer) {
+        var p = (now - intro.start) / 1500;
+        if (p > 1) intro = null;
+        else if (p > 0) {
+          var left = rects[0].left, right = rects[rects.length - 1].right;
+          sweepX = left + (right - left) * (p * 1.4 - 0.2);
+        }
+      }
+      return rects.map(function (r, i) {
+        var cx = r.left + r.width / 2, cy = r.top + r.height / 2, d;
+        if (pointer) d = Math.sqrt(Math.pow(pointer.x - cx, 2) + 0.6 * Math.pow(pointer.y - cy, 2));
+        else if (sweepX !== null) d = Math.abs(sweepX - cx);
+        else return base[i];
+        var f = Math.max(0, 1 - d / radius);
+        f = f * f * (3 - 2 * f);
+        return base[i] + (MAX - base[i]) * f;
+      });
+    }
+
+    function tick(now) {
+      var target = targets(now);
+      var moving = false;
+      letters.forEach(function (l, i) {
+        var diff = target[i] - cur[i];
+        if (Math.abs(diff) > 0.5) { cur[i] += diff * 0.18; moving = true; }
+        else cur[i] = target[i];
+        l.style.fontVariationSettings = '"wght" ' + Math.round(cur[i]) + ', "opsz" 144, "SOFT" 30';
+      });
+      raf = (moving || pointer || intro) ? requestAnimationFrame(tick) : null;
+    }
+    function run() { if (!raf) raf = requestAnimationFrame(tick); }
+
+    function onMove(e) {
+      var t = e.touches ? e.touches[0] : e;
+      pointer = { x: t.clientX, y: t.clientY };
+      run();
+    }
+    function onLeave() { pointer = null; run(); }
+
+    document.addEventListener("mousemove", onMove);
+    document.addEventListener("mouseleave", onLeave);
+    h1.addEventListener("touchmove", onMove, { passive: true });
+    h1.addEventListener("touchend", onLeave);
+    run();
+
+    nameFx = {
+      stop: function () {
+        cancelAnimationFrame(raf);
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseleave", onLeave);
+      }
+    };
   }
 
   // ---------- Background: ocean swell (home page only) ----------
