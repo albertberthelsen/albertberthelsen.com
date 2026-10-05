@@ -166,7 +166,7 @@ main { flex: 1; padding: 4rem var(--gutter) 6rem; }
 .hero { display: flex; flex-direction: column; justify-content: center; padding-top: 3rem; }
 
 .display {
-  font-size: clamp(3.6rem, 8.4vw, 10rem);
+  font-size: clamp(3.2rem, 13vw, 11rem);
   white-space: nowrap;
   line-height: 0.9;
   letter-spacing: -0.035em;
@@ -609,3 +609,21 @@ a.ext { white-space: nowrap; }
 .cards-single { grid-template-columns: 1fr; max-width: 30rem; }
 .cards-single .card { grid-template-columns: 1fr auto; padding: 1.9rem 1.75rem; }
 .cards-single .card-title { font-size: 2.4rem; }
+
+/* ---------- Balanced layout on wide screens ---------- */
+.topbar, main, .statusbar { width: 100%; max-width: 84rem; margin-inline: auto; }
+
+.hero-body {
+  display: grid;
+  grid-template-columns: minmax(0, 40rem) minmax(16rem, 24rem);
+  justify-content: space-between;
+  align-items: end;
+  gap: 3rem;
+}
+.hero-body .hero-intro { margin-bottom: 0; }
+.hero-body .cards-single { max-width: none; }
+
+@media (max-width: 52rem) {
+  .hero-body { grid-template-columns: 1fr; gap: 3rem; }
+  .hero-body .cards-single { max-width: 30rem; }
+}

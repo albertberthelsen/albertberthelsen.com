@@ -174,6 +174,7 @@ page("", None,
      "Hi, I\u2019m Albert. Finance student in Bergen.",
      """
 <h1 class="display"><span>Albert</span> <em>Berthelsen<span class="dot">.</span></em></h1>
+<div class="hero-body">
 <p class="hero-intro">I&rsquo;m a finance student at <span class="hl">BI Norwegian Business School</span> in Bergen. Last spring I was on exchange at <span class="hl">Bocconi</span> in Milan. Today I&rsquo;m the first external hire at <a class="hl" href="/projects/ai-gtm-toolkit">Kora Fashion</a>, a B2B SaaS start-up founded by two former Meta employees. I handle sales in Norway and build AI tools for the team. Before that, I spent a summer as a consultant at <a class="hl" href="/projects/vuse-market-research">I Wish</a> in London, and I co-founded <a class="hl" href="/projects/cyber-snails">Cyber Snails</a>. It sold out for NOK 6 million on launch day.</p>
 <nav class="cards cards-single" aria-label="Main">
   <a class="card" href="/projects">
@@ -181,6 +182,7 @@ page("", None,
     <span class="card-arrow">&rarr;</span>
   </a>
 </nav>
+</div>
 """, home=True)
 
 # ---------- Projects index ----------
