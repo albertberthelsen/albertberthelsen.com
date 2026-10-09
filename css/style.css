@@ -672,3 +672,8 @@ a.ext { white-space: nowrap; }
   .project-list .card-arrow { padding-top: 0; }
 }
 .lightbox-wide { max-width: min(92vw, 72rem); }
+
+/* Contact fits on one screen */
+.contact-grid { align-items: center; }
+.contact-photo img { width: auto; max-width: 100%; height: min(27.5rem, 58vh); }
+.contact-facts dd { overflow-wrap: anywhere; }
