@@ -333,7 +333,9 @@ page("contact", "Contact",
 <h1 class="mono kicker">Get in touch</h1>
 <div class="contact-grid">
   <figure class="contact-photo">
-    <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382">
+    <button class="contact-photo-btn" type="button" aria-label="Show full portrait" data-lightbox="portrait-full">
+      <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382">
+    </button>
   </figure>
   <div class="contact-side">
   <dl class="contact-facts">
@@ -348,6 +350,10 @@ page("contact", "Contact",
     </div>
   </div>
 </div>
+<dialog class="lightbox" id="portrait-full" aria-label="Portrait of Albert Berthelsen">
+  <img src="/img/albert.jpg" alt="Albert Berthelsen" width="878" height="1382" loading="lazy">
+  <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+</dialog>
 <dialog class="drawer" id="about-me" aria-label="More about Albert">
   <div class="drawer-inner">
     <div class="drawer-head">
