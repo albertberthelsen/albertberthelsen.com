@@ -83,6 +83,50 @@ def page(path, title, desc, body, home=False, wide=False):
 # ---------- Projects data ----------
 projects = [
     dict(
+        slug="anna-berthelsen",
+        title="A website and Print Club for an artist",
+        meta="annaberthelsen.com &middot; 2026",
+        summary="I built the website and online shop for my mother&rsquo;s art studio, and together we launched Print Club, a monthly print subscription.",
+        facts=[("Client", "Anna Berthelsen, artist (my mother)"),
+               ("Location", "Kristiansand, Norway"),
+               ("Launched", "Print Club, October 2026"),
+               ("Website", '<a class="ext" href="https://annaberthelsen.com/" target="_blank" rel="noopener">annaberthelsen.com</a>'),
+               ("Print Club", '<a class="ext" href="https://annaberthelsen.com/print-club" target="_blank" rel="noopener">See the page</a>')],
+        body="""
+        <h2>Background</h2>
+        <p>My mother, Anna Berthelsen, is an artist in Kristiansand. She makes lithographies, original works and bark boats, and exhibits along the Norwegian coast. She needed a place to sell her work online and tell the story behind it.</p>
+
+        <h2>The website</h2>
+        <p>I built annaberthelsen.com for her. It has a shop, a page about her, an overview of her exhibitions and a contact page. The design follows her work: calm, light and with plenty of room for the images.</p>
+
+        <figure class="photo">
+          <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="anna-home-full">
+            <img src="/img/anna-home.jpg" alt="The front page of annaberthelsen.com" width="1600" height="1000" loading="lazy">
+          </button>
+          <figcaption class="mono">The front page of annaberthelsen.com.</figcaption>
+        </figure>
+        <dialog class="lightbox lightbox-wide" id="anna-home-full" aria-label="The front page of annaberthelsen.com">
+          <img src="/img/anna-home.jpg" alt="The front page of annaberthelsen.com" width="1600" height="1000" loading="lazy">
+          <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+        </dialog>
+
+        <h2>Print Club</h2>
+        <p>In October 2026 we launched Print Club, a monthly subscription to her work. Each month, members receive one original piece, hand printed and hand painted, 1/1 and signed. It costs 250 NOK a month with postage included. There is no commitment, and there are only 30 seats.</p>
+        <p>The idea was to turn one-off sales into something recurring, while keeping each print rare.</p>
+
+        <figure class="photo">
+          <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="anna-printclub-full">
+            <img src="/img/anna-printclub.jpg" alt="The Print Club page on annaberthelsen.com" width="1600" height="1000" loading="lazy">
+          </button>
+          <figcaption class="mono">The Print Club page, first edition.</figcaption>
+        </figure>
+        <dialog class="lightbox lightbox-wide" id="anna-printclub-full" aria-label="The Print Club page">
+          <img src="/img/anna-printclub.jpg" alt="The Print Club page on annaberthelsen.com" width="1600" height="1000" loading="lazy">
+          <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+        </dialog>
+        """,
+    ),
+    dict(
         slug="ai-gtm-toolkit",
         title="AI tools for go-to-market",
         meta="Kora Fashion · 2026",
@@ -178,7 +222,7 @@ page("", None,
 <p class="hero-intro">I&rsquo;m a finance student at <span class="hl">BI Norwegian Business School</span> in Bergen. Last spring I was on exchange at <span class="hl">Bocconi</span> in Milan. Today I&rsquo;m the first external hire at <a class="hl" href="/projects/ai-gtm-toolkit">Kora Fashion</a>, a B2B SaaS start-up founded by two former Meta employees. I handle sales in Norway and build AI tools for the team. Before that, I spent a summer as a consultant at <a class="hl" href="/projects/vuse-market-research">I Wish</a> in London, and I co-founded <a class="hl" href="/projects/cyber-snails">Cyber Snails</a>. It sold out for NOK 6 million on launch day.</p>
 <nav class="cards cards-single" aria-label="Main">
   <a class="card" href="/projects">
-    <span><span class="card-title">Projects</span><span class="mono card-sub">3 selected projects</span></span>
+    <span><span class="card-title">Projects</span><span class="mono card-sub">4 selected projects</span></span>
     <span class="card-arrow">&rarr;</span>
   </a>
 </nav>

@@ -671,3 +671,4 @@ a.ext { white-space: nowrap; }
   .project-list .idx { padding-top: 0; }
   .project-list .card-arrow { padding-top: 0; }
 }
+.lightbox-wide { max-width: min(92vw, 72rem); }
