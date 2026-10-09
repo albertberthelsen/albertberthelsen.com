@@ -84,12 +84,13 @@ def page(path, title, desc, body, home=False, wide=False):
 projects = [
     dict(
         slug="anna-berthelsen",
-        title="A website and Print Club for an artist",
+        title="My mother&rsquo;s studio, online",
         meta="annaberthelsen.com &middot; 2026",
         summary="I built the website and online shop for my mother&rsquo;s art studio, and together we launched Print Club, a monthly print subscription.",
         facts=[("Client", "Anna Berthelsen, artist (my mother)"),
                ("Location", "Kristiansand, Norway"),
                ("Launched", "Print Club, October 2026"),
+               ("Built with", "Lovable, Shopify"),
                ("Website", '<a class="ext" href="https://annaberthelsen.com/" target="_blank" rel="noopener">annaberthelsen.com</a>'),
                ("Print Club", '<a class="ext" href="https://annaberthelsen.com/print-club" target="_blank" rel="noopener">See the page</a>')],
         body="""
@@ -97,7 +98,7 @@ projects = [
         <p>My mother, Anna Berthelsen, is an artist in Kristiansand. She makes lithographies, original works and bark boats, and exhibits along the Norwegian coast. She needed a place to sell her work online and tell the story behind it.</p>
 
         <h2>The website</h2>
-        <p>I built annaberthelsen.com for her. It has a shop, a page about her, an overview of her exhibitions and a contact page. The design follows her work: calm, light and with plenty of room for the images.</p>
+        <p>I built annaberthelsen.com for her with Lovable, and set up the shop with Shopify. The site has a shop, a page about her, an overview of her exhibitions and a contact page. The design follows her work: calm, light and with plenty of room for the images.</p>
 
         <figure class="photo">
           <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="anna-home-full">
@@ -112,7 +113,7 @@ projects = [
 
         <h2>Print Club</h2>
         <p>In October 2026 we launched Print Club, a monthly subscription to her work. Each month, members receive one original piece, hand printed and hand painted, 1/1 and signed. It costs 250 NOK a month with postage included. There is no commitment, and there are only 30 seats.</p>
-        <p>The idea was to turn one-off sales into something recurring, while keeping each print rare.</p>
+        <p>The idea behind it is simple. For many people, an original artwork is a big first purchase. At 250 NOK a month, Print Club is an easy way in. Each print comes with a handwritten letter, so members get to know Anna and her work over time. Our hope is that some of them go on to buy larger pieces, and that the club brings in steady monthly income along the way.</p>
 
         <figure class="photo">
           <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="anna-printclub-full">
