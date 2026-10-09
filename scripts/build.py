@@ -84,7 +84,7 @@ def page(path, title, desc, body, home=False, wide=False):
 projects = [
     dict(
         slug="anna-berthelsen",
-        title="My mother&rsquo;s studio, online",
+        title="Bringing my mother&rsquo;s art online",
         meta="annaberthelsen.com &middot; 2026",
         summary="I built the website and online shop for my mother&rsquo;s art studio, and together we launched Print Club, a monthly print subscription.",
         facts=[("Client", "Anna Berthelsen, artist (my mother)"),
