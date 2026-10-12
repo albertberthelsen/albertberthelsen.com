@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FLNG Radar · Albert Berthelsen</title>
+  <meta name="description" content="A live tool that follows Golar LNG&rsquo;s floating LNG business: gas prices, every floating plant, new projects and the news.">
+  <link rel="canonical" href="https://albertberthelsen.com/projects/flng-radar">
+  <meta property="og:title" content="FLNG Radar · Albert Berthelsen">
+  <meta property="og:description" content="A live tool that follows Golar LNG&rsquo;s floating LNG business: gas prices, every floating plant, new projects and the news.">
+  <meta property="og:url" content="https://albertberthelsen.com/projects/flng-radar">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Albert Berthelsen">
+  <meta property="og:image" content="https://albertberthelsen.com/og-portrait.jpg">
+  <meta property="og:image:width" content="878">
+  <meta property="og:image:height" content="1098">
+  <meta property="og:image:alt" content="Hi, I’m Albert. Finance student in Bergen.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="https://albertberthelsen.com/og-portrait.jpg">
+  <meta name="theme-color" content="#0c0e12">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,100..900,0..100;1,9..144,100..900,0..100&family=JetBrains+Mono:wght@400&display=swap">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="/css/style.css">
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+  <div class="curtain" aria-hidden="true"><span class="curtain-label"></span></div>
+
+  <header class="topbar">
+    <a class="brand" href="/">Albert <em>Berthelsen</em></a>
+    <nav class="site-nav mono" aria-label="Main">
+      <a href="/projects">Projects</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="wrap wrap-wide">
+      <p class="mono kicker">Personal project &middot; 2026</p>
+      <h1>FLNG Radar</h1>
+      <div class="project-layout">
+      <aside class="project-facts">
+      <dl class="facts">
+        <dt class="mono">Focus</dt><dd>Golar LNG and floating LNG</dd>
+        <dt class="mono">Built with</dt><dd>JavaScript, Python, Vercel</dd>
+        <dt class="mono">Data</dt><dd>World Bank, Global Energy Monitor, Yahoo Finance, AIS</dd>
+        <dt class="mono">Live</dt><dd><a class="ext" href="https://flng-radar.vercel.app/" target="_blank" rel="noopener">flng-radar.vercel.app</a></dd>
+        <dt class="mono">Code</dt><dd><a class="ext" href="https://github.com/albertberthelsen/flng-radar" target="_blank" rel="noopener">GitHub</a></dd>
+      </dl>
+      </aside>
+      <div class="project-body">
+      <h2>Background</h2>
+      <p>I wanted to understand Golar LNG properly. The company turns gas into LNG on floating plants and leases them out on long contracts. Its fourth unit has no customer yet, so I built a tool around one question: where should it go?</p>
+
+      <h2>What it does</h2>
+      <ul>
+        <li><strong>Market.</strong> Live gas prices, and what Golar&rsquo;s share of the LNG price on its Argentine contracts is worth today.</li>
+        <li><strong>Map.</strong> Every floating LNG unit, plus places where gas is burned off near the coast, from World Bank satellite data.</li>
+        <li><strong>Pitch.</strong> What a Golar unit would be worth to the owner of a gas field, at today&rsquo;s prices.</li>
+        <li><strong>News.</strong> Floating LNG deals and gas discoveries from the last 30 days.</li>
+      </ul>
+      <p>Alongside the tool, I wrote a short case on where the fourth unit should go, built on my own model in Python.</p>
+
+      <figure class="photo">
+        <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="flng-full">
+          <img src="/img/flng-radar.jpg" alt="The Market page of FLNG Radar with live gas prices" width="1600" height="1000" loading="lazy">
+        </button>
+        <figcaption class="mono">The Market page, with live prices.</figcaption>
+      </figure>
+      <dialog class="lightbox lightbox-wide" id="flng-full" aria-label="The Market page of FLNG Radar">
+        <img src="/img/flng-radar.jpg" alt="The Market page of FLNG Radar with live gas prices" width="1600" height="1000" loading="lazy">
+        <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+      </dialog>
+      <a class="next" href="/projects/ai-gtm-toolkit">
+        <span class="mono">Next project</span>
+        <span class="next-title">AI tools for go-to-market<span class="dot">.</span></span>
+        <span class="card-arrow"><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13.5 6.5 19 12l-5.5 5.5"/></svg></span>
+      </a>
+      <a class="mono back" href="/projects"><svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M10.5 6.5 5 12l5.5 5.5"/></svg> All projects</a>
+      </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="statusbar mono">
+    <span class="foot-links"><a href="/contact">Contact</a><a href="https://www.linkedin.com/in/albert-berthelsen-7a202219b" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/albertberthelsen" target="_blank" rel="noopener">GitHub</a></span>
+    <span id="clock">Bergen</span>
+  </footer>
+
+  <script src="/js/main.js" defer></script>
+</body>
+</html>

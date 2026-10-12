@@ -128,6 +128,41 @@ projects = [
         """,
     ),
     dict(
+        slug="flng-radar",
+        title="FLNG Radar",
+        meta="Personal project &middot; 2026",
+        summary="A live tool that follows Golar LNG&rsquo;s floating LNG business: gas prices, every floating plant, new projects and the news.",
+        facts=[("Focus", "Golar LNG and floating LNG"),
+               ("Built with", "JavaScript, Python, Vercel"),
+               ("Data", "World Bank, Global Energy Monitor, Yahoo Finance, AIS"),
+               ("Live", '<a class="ext" href="https://flng-radar.vercel.app/" target="_blank" rel="noopener">flng-radar.vercel.app</a>'),
+               ("Code", '<a class="ext" href="https://github.com/albertberthelsen/flng-radar" target="_blank" rel="noopener">GitHub</a>')],
+        body="""
+        <h2>Background</h2>
+        <p>I wanted to understand Golar LNG properly. The company turns gas into LNG on floating plants and leases them out on long contracts. Its fourth unit has no customer yet, so I built a tool around one question: where should it go?</p>
+
+        <h2>What it does</h2>
+        <ul>
+          <li><strong>Market.</strong> Live gas prices, and what Golar&rsquo;s share of the LNG price on its Argentine contracts is worth today.</li>
+          <li><strong>Map.</strong> Every floating LNG unit, plus places where gas is burned off near the coast, from World Bank satellite data.</li>
+          <li><strong>Pitch.</strong> What a Golar unit would be worth to the owner of a gas field, at today&rsquo;s prices.</li>
+          <li><strong>News.</strong> Floating LNG deals and gas discoveries from the last 30 days.</li>
+        </ul>
+        <p>Alongside the tool, I wrote a short case on where the fourth unit should go, built on my own model in Python.</p>
+
+        <figure class="photo">
+          <button class="photo-btn" type="button" aria-label="Show larger" data-lightbox="flng-full">
+            <img src="/img/flng-radar.jpg" alt="The Market page of FLNG Radar with live gas prices" width="1600" height="1000" loading="lazy">
+          </button>
+          <figcaption class="mono">The Market page, with live prices.</figcaption>
+        </figure>
+        <dialog class="lightbox lightbox-wide" id="flng-full" aria-label="The Market page of FLNG Radar">
+          <img src="/img/flng-radar.jpg" alt="The Market page of FLNG Radar with live gas prices" width="1600" height="1000" loading="lazy">
+          <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+        </dialog>
+        """,
+    ),
+    dict(
         slug="ai-gtm-toolkit",
         title="AI tools for go-to-market",
         meta="Kora Fashion · 2026",
@@ -223,7 +258,7 @@ page("", None,
 <p class="hero-intro">I&rsquo;m a finance student at <span class="hl">BI Norwegian Business School</span> in Bergen. Last spring I was on exchange at <span class="hl">Bocconi</span> in Milan. Today I&rsquo;m the first external hire at <a class="hl" href="/projects/ai-gtm-toolkit">Kora Fashion</a>, a B2B SaaS start-up founded by two former Meta employees. I handle sales in Norway and build AI tools for the team. Before that, I spent a summer as a consultant at <a class="hl" href="/projects/vuse-market-research">I Wish</a> in London, and I co-founded <a class="hl" href="/projects/cyber-snails">Cyber Snails</a>. It sold out for NOK 6 million on launch day.</p>
 <nav class="cards cards-single" aria-label="Main">
   <a class="card" href="/projects">
-    <span><span class="card-title">Projects</span><span class="mono card-sub">4 selected projects</span></span>
+    <span><span class="card-title">Projects</span><span class="mono card-sub">5 selected projects</span></span>
     <span class="card-arrow">&rarr;</span>
   </a>
 </nav>
