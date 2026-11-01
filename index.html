@@ -27,6 +27,7 @@
   <script>
     document.documentElement.classList.add("js");
     try { if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); } catch (e) {}
+    try { if (sessionStorage.getItem("ab-intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("intro-seen"); } catch (e) {}
   </script>
   <link rel="stylesheet" href="/css/style.css">
   <script defer src="/_vercel/insights/script.js"></script>
@@ -35,6 +36,10 @@
   <canvas id="market" aria-hidden="true"></canvas>
   <div class="curtain" aria-hidden="true"><span class="curtain-label"></span></div>
 
+  <div class="intro" id="intro" role="presentation" aria-hidden="true">
+    <span class="intro-mark">AB</span>
+    <span class="intro-skip mono">Click to enter</span>
+  </div>
   <div class="home-tools">
     <button class="theme-switch" type="button" aria-label="Light theme" aria-pressed="false"></button>
   </div>

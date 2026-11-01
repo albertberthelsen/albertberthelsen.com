@@ -27,6 +27,7 @@
   <script>
     document.documentElement.classList.add("js");
     try { if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); } catch (e) {}
+    try { if (sessionStorage.getItem("ab-intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("intro-seen"); } catch (e) {}
   </script>
   <link rel="stylesheet" href="/css/style.css">
   <script defer src="/_vercel/insights/script.js"></script>
@@ -39,6 +40,7 @@
     <nav class="site-nav mono" aria-label="Main">
       <a href="/projects">Projects</a>
       <a href="/contact">Contact</a>
+      <button class="theme-switch" type="button" aria-label="Light theme" aria-pressed="false"></button>
     </nav>
   </header>
 

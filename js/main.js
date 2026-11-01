@@ -53,6 +53,7 @@
       if (about && about.showModal) about.showModal();
     }
 
+    playIntro(fromNav);
     startWaves(document.getElementById("market"), !waves && !fromNav);
     livingName(fromNav);
     syncThemeSwitch();
@@ -86,7 +87,73 @@
     try { localStorage.setItem("theme", light ? "light" : "dark"); } catch (err) {}
     readColors();
     syncThemeSwitch();
+    if (glassFx) glassFx.configure(glassLook(), glassColors());
   });
+
+  // ---------- Glass AB (home page) ----------
+  // The glass effect lives in its own file and only loads when the home page is shown.
+  var glassFx = null;
+  var glassScript = null;
+  function glassLook() { return root.getAttribute("data-theme") === "light" ? "light" : "dark"; }
+  function glassColors() {
+    return glassLook() === "light"
+      ? { background: "#f6f5f1", logoColor: "#16181c", tileSize: 220 }
+      : { background: "#0c0e12", plateColor: "#10131a", logoColor: "#ece7dc", tileSize: 220 };
+  }
+  function loadGlass() {
+    if (!glassScript) {
+      glassScript = new Promise(function (resolve, reject) {
+        var s = document.createElement("script");
+        s.src = "/js/glass.js";
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+      });
+    }
+    return glassScript;
+  }
+  // Full-screen intro on the first visit: the glass forms around AB, lets go, and the
+  // intro slides away to the site. A click or key skips it. Shown once per visit.
+  function playIntro(fromNav) {
+    var el = document.getElementById("intro");
+    if (!el) return;
+    if (fromNav || root.classList.contains("intro-seen")) { el.remove(); return; }
+    try { sessionStorage.setItem("ab-intro", "1"); } catch (e) {}
+    root.classList.add("intro-playing");
+
+    var done = false;
+    function finish() {
+      if (done) return;
+      done = true;
+      el.classList.add("leave");
+      root.classList.remove("intro-playing");
+      document.dispatchEvent(new Event("introdone"));
+      document.removeEventListener("keydown", finish);
+      setTimeout(function () {
+        if (glassFx) { glassFx.dispose(); glassFx = null; }
+        el.remove();
+      }, 900);
+    }
+    el.addEventListener("click", finish);
+    document.addEventListener("keydown", finish);
+    // Never keep anyone waiting if the effect can't load.
+    var safety = setTimeout(finish, 7000);
+
+    loadGlass()
+      .then(function () { return document.fonts.load('400 400px "Fraunces"'); })
+      .then(function () {
+        if (done) return;
+        var mark = window.GlassReveal.textMark([{ text: "AB", font: '400 SIZE "Fraunces"' }]);
+        var settings = Object.assign(glassColors(), { tileSize: 300 });
+        glassFx = window.GlassReveal.mount(el, { look: glassLook(), mark: mark, settings: settings });
+        if (!glassFx) { finish(); return; }
+        el.classList.add("on");
+        // The reveal takes 3.5 s; hold the finished AB a moment, then enter.
+        clearTimeout(safety);
+        setTimeout(finish, 4100);
+      })
+      .catch(finish);
+  }
 
   // ---------- Living name (home page) ----------
   // Letters get heavier near the cursor or finger. A wave runs through the
@@ -123,6 +190,10 @@
     var MAX = 820;
     var pointer = null, raf = null;
     var intro = { start: performance.now() + (fromNav ? 250 : 500) };
+    if (root.classList.contains("intro-playing")) {
+      intro.start = Infinity;
+      document.addEventListener("introdone", function () { intro.start = performance.now() + 450; run(); }, { once: true });
+    }
 
     function targets(now) {
       var fs = parseFloat(getComputedStyle(h1).fontSize);
@@ -268,10 +339,13 @@
   }
 
   function wait(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  // Waits for the browser to draw n frames. A browser that isn't drawing (a hidden
+  // tab) never runs them, so a short timeout makes sure a page swap can't get stuck.
   function nextFrames(n) {
-    return new Promise(function (r) {
+    var frames = new Promise(function (r) {
       (function step() { if (n-- <= 0) r(); else requestAnimationFrame(step); })();
     });
+    return Promise.race([frames, wait(150)]);
   }
 
   // The main sections get their name on the curtain. Everything else gets a
@@ -380,5 +454,7 @@
   });
 
   initPage(false);
-  requestAnimationFrame(function () { root.classList.add("ready"); });
+  function ready() { root.classList.add("ready"); }
+  requestAnimationFrame(ready);
+  setTimeout(ready, 300);
 })();

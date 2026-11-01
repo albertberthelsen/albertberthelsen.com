@@ -9,7 +9,11 @@ ARROW_LEFT = '<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d=
 def page(path, title, desc, body, home=False, wide=False):
     full_title = "Albert Berthelsen" if title is None else f"{title} · Albert Berthelsen"
     if home:
-        topbar = """<div class="home-tools">
+        topbar = """<div class="intro" id="intro" role="presentation" aria-hidden="true">
+    <span class="intro-mark">AB</span>
+    <span class="intro-skip mono">Click to enter</span>
+  </div>
+  <div class="home-tools">
     <button class="theme-switch" type="button" aria-label="Light theme" aria-pressed="false"></button>
   </div>"""
         canvas = '<canvas id="market" aria-hidden="true"></canvas>\n  '
@@ -21,6 +25,7 @@ def page(path, title, desc, body, home=False, wide=False):
     <nav class="site-nav mono" aria-label="Main">
       <a href="/projects">Projects</a>
       <a href="/contact">Contact</a>
+      <button class="theme-switch" type="button" aria-label="Light theme" aria-pressed="false"></button>
     </nav>
   </header>"""
         inner = ("  <div class=\"wrap wrap-wide\">\n" if wide else "  <div class=\"wrap\">\n") + textwrap.indent(textwrap.dedent(body).strip(), "      ") + "\n    </div>"
@@ -56,6 +61,7 @@ def page(path, title, desc, body, home=False, wide=False):
   <script>
     document.documentElement.classList.add("js");
     try {{ if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); }} catch (e) {{}}
+    try {{ if (sessionStorage.getItem("ab-intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("intro-seen"); }} catch (e) {{}}
   </script>
   <link rel="stylesheet" href="/css/style.css">
   <script defer src="/_vercel/insights/script.js"></script>
