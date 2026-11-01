@@ -55,7 +55,38 @@
 
     startWaves(document.getElementById("market"), !waves && !fromNav);
     livingName(fromNav);
+    syncThemeSwitch();
   }
+
+  // ---------- Light / dark theme ----------
+  // Dark is the default. The switch on the home page turns on the light
+  // theme for the whole site and remembers the choice.
+  var colors = {};
+  function readColors() {
+    var cs = getComputedStyle(root);
+    colors.accent = cs.getPropertyValue("--accent-rgb").trim() || "143, 176, 212";
+    colors.text = cs.getPropertyValue("--text-rgb").trim() || "236, 231, 220";
+  }
+  function syncThemeSwitch() {
+    var light = root.getAttribute("data-theme") === "light";
+    document.querySelectorAll(".theme-switch").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(light));
+      b.setAttribute("aria-label", light ? "Dark theme" : "Light theme");
+    });
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", light ? "#f6f5f1" : "#0c0e12");
+  }
+  readColors();
+
+  document.addEventListener("click", function (e) {
+    if (!(e.target.closest && e.target.closest(".theme-switch"))) return;
+    var light = root.getAttribute("data-theme") !== "light";
+    if (light) root.setAttribute("data-theme", "light");
+    else root.removeAttribute("data-theme");
+    try { localStorage.setItem("theme", light ? "light" : "dark"); } catch (err) {}
+    readColors();
+    syncThemeSwitch();
+  });
 
   // ---------- Living name (home page) ----------
   // Letters get heavier near the cursor or finger. A wave runs through the
@@ -188,8 +219,8 @@
           x ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
         }
         ctx.strokeStyle = i === ACCENT
-          ? "rgba(143,176,212," + (0.4 * alpha) + ")"
-          : "rgba(236,231,220," + ((0.05 + p * 0.08) * alpha) + ")";
+          ? "rgba(" + colors.accent + "," + (0.4 * alpha) + ")"
+          : "rgba(" + colors.text + "," + ((0.05 + p * 0.08) * alpha) + ")";
         ctx.stroke();
       }
     }

@@ -9,7 +9,9 @@ ARROW_LEFT = '<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d=
 def page(path, title, desc, body, home=False, wide=False):
     full_title = "Albert Berthelsen" if title is None else f"{title} · Albert Berthelsen"
     if home:
-        topbar = ""
+        topbar = """<div class="home-tools">
+    <button class="theme-switch" type="button" aria-label="Light theme" aria-pressed="false"></button>
+  </div>"""
         canvas = '<canvas id="market" aria-hidden="true"></canvas>\n  '
         inner = textwrap.indent(textwrap.dedent(body).strip(), "    ")
         main_open, main_close = '<main class="hero">', "</main>"
@@ -51,7 +53,10 @@ def page(path, title, desc, body, home=False, wide=False):
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,100..900,0..100;1,9..144,100..900,0..100&family=JetBrains+Mono:wght@400&display=swap">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    document.documentElement.classList.add("js");
+    try {{ if (localStorage.getItem("theme") === "light") document.documentElement.setAttribute("data-theme", "light"); }} catch (e) {{}}
+  </script>
   <link rel="stylesheet" href="/css/style.css">
   <script defer src="/_vercel/insights/script.js"></script>
 </head>
