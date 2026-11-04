@@ -797,3 +797,5 @@ html.intro-playing { overflow: hidden; }
 /* Theme switch in the top bar on the other pages */
 .site-nav { align-items: center; }
 .site-nav .theme-switch { margin-left: 0.25rem; transform-origin: center; scale: 0.8; }
+.project-body h3 { margin: 2rem 0 0.5rem; }
+.project-body h2 + h3 { margin-top: 0.5rem; }

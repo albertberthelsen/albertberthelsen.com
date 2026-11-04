@@ -177,7 +177,7 @@ projects = [
         slug="ai-gtm-toolkit",
         title="AI tools for go-to-market",
         meta="Kora Fashion · 2026",
-        summary="Lead-sourcing tools and a meeting-prep and onboarding platform, built for a B2B SaaS start-up.",
+        summary="A lead engine that finds and qualifies Shopify brands, and a sales platform for the team&rsquo;s calls and follow-ups.",
         facts=[("Context", "GTM Internship, Kora Fashion (Stockholm, remote)"),
                ("Period", "Since Jul 2026"),
                ("Role", "Commercial responsibility for Norway"),
@@ -198,16 +198,23 @@ projects = [
         </dialog>
 
         <h2>What I do</h2>
-        <p>I own the Norwegian market from first contact to onboarding. I book the meetings, follow up, and onboard customers once they sign. I also work closely with the CTO on which markets Kora should enter next.</p>
+        <p>Kora sells virtual try-on and visualisation that sits on the product page of online stores. Every customer has to run Shopify. I call leads together with a colleague on fixed days each week.</p>
+
+        <h2>The problem</h2>
+        <p>Finding the right companies was slow. Each one had to be checked for Shopify, and then we needed to find who makes the decisions and a number to call. By hand, that took around ten minutes per company.</p>
 
         <h2>What I built</h2>
-        <p>Early on, I noticed how much of the job was repetitive work. So I built tools for it.</p>
-        <ul>
-          <li><strong>Lead sourcing.</strong> AI tools that find and qualify potential customers, so more of my time goes to actual conversations.</li>
-          <li><strong>Meeting preparation.</strong> A platform that pulls together what I need to know before each client meeting.</li>
-          <li><strong>Onboarding.</strong> The same platform is used to onboard new GTM hires, so they don&rsquo;t have to start from zero.</li>
-        </ul>
-        <p>Being the first hire means there is no playbook. Building these tools has been my way of writing one.</p>
+        <p>Two tools. A lead engine in Python finds and qualifies the companies, and a sales platform is where the team does the calling.</p>
+
+        <h2>How it works</h2>
+        <h3>The lead engine</h3>
+        <p>It confirms that a store runs Shopify by looking for at least two independent signs. Then it finds the decision makers and their phone numbers through public company registers in six countries and contact services. It is connected to 10 APIs and runs overnight. One night it found 234 new paint and wallpaper brands around the world.</p>
+        <h3>The sales platform</h3>
+        <p>We log every call, meeting and LinkedIn contact here, against shared daily targets. Before each call it writes an AI opening, and afterwards it drafts the follow-up email. A LinkedIn pipeline tracks each contact from connection to message. New people on the sales team also learn the job on it.</p>
+
+        <h2>Results</h2>
+        <p>The pipeline now holds more than 1,400 qualified brands in 15 markets. We estimate the tools have saved over 200 hours of manual research.</p>
+        <p>I keep developing both tools as we go. The main thing I have learned is that most of sales is preparation, and preparation is something you can build.</p>
 
         """,
     ),
