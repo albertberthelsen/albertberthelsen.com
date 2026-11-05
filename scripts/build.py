@@ -94,6 +94,42 @@ def page(path, title, desc, body, home=False, wide=False):
 # ---------- Projects data ----------
 projects = [
     dict(
+        slug="ai-gtm-toolkit",
+        title="Building Kora&rsquo;s sales engine",
+        meta="Kora Fashion · 2026",
+        summary="A lead engine and a sales platform that took a small team from manual research to 1,400+ qualified leads.",
+        facts=[("Role", "Go-To-Market Intern"),
+               ("Period", "Since Jul 2026"),
+               ("Built", "Lead engine and sales platform"),
+               ("Company", '<a class="ext" href="https://www.kora.fashion/" target="_blank" rel="noopener">kora.fashion</a>')],
+        body="""
+        <h2>Background</h2>
+        <p>Kora Fashion is an early-stage B2B SaaS start-up founded by two former Meta employees. Daniel Wellington is one of its pilot customers. I joined as the first external hire.</p>
+
+        <figure class="photo">
+          <button class="photo-btn" type="button" aria-label="Show full photo" data-lightbox="kora-visit-full">
+            <img src="/img/kora-visit.jpg" alt="Albert and his brother sitting in front of the Meta logo" width="1000" height="1000" loading="lazy">
+          </button>
+          <figcaption class="mono">With my brother, visiting one of Kora&rsquo;s founders at Meta.</figcaption>
+        </figure>
+        <dialog class="lightbox" id="kora-visit-full" aria-label="Albert and his brother at Meta">
+          <img src="/img/kora-visit-full.jpg" alt="Albert and his brother sitting in front of the Meta logo" width="1170" height="1480" loading="lazy">
+          <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
+        </dialog>
+
+        <h2>The problem</h2>
+        <p>Kora sells virtual try-on and visualisation that sits right on the product page of online stores. Every customer has to run Shopify, and the brands we look for sell their own products directly: clothing, shoes, eyewear, paint, wallpaper, flooring and wall art. I call leads with a colleague on fixed days each week, and I&rsquo;m responsible for sales in Norway.</p>
+        <p>Most of our time didn&rsquo;t go to the calls. It went to working out who to call. For every company we had to check whether the store ran Shopify, whether it fit our target group, who made the decisions and which number we could reach them on. That took around ten minutes each, and plenty of them turned out not to fit anyway.</p>
+
+        <h2>What I built</h2>
+        <p>The first tool is a lead engine. It&rsquo;s written in Python and connected to 10 APIs, among them public company registers in six countries and a few contact services. It checks every store for Shopify in two rounds and only approves it when it finds at least two independent signs. Then it removes duplicates and companies outside our target group, and finds the decision makers, phone numbers, revenue and a factual line about each brand. It only uses open and legal sources, and it moves slowly enough not to put any load on the websites it visits. It runs overnight. One night it came back with 234 new paint and wallpaper brands from around the world.</p>
+        <p>The second is the sales platform, which is where the team works every calling day. It ranks companies by how well they fit us, looking at things like segment, size and whether they already use a competitor. Before each call it shows an opening written by AI, and afterwards it drafts the follow-up email. Every call, meeting and LinkedIn contact is logged against shared daily targets, with a LinkedIn pipeline from connection to message and a chart of our progress. It works in three languages, and we also use it to train new people on the sales team.</p>
+
+        <h2>What changed</h2>
+        <p>The pipeline now holds more than 1,400 qualified brands in 15 markets, and we estimate the tools have saved over 200 hours of manual research. I still work on both of them every week. Starting without a playbook taught me that you can write one by building it, and these tools are mine.</p>
+        """,
+    ),
+    dict(
         slug="anna-berthelsen",
         title="Bringing my mother&rsquo;s art online",
         meta="annaberthelsen.com &middot; 2026",
@@ -171,51 +207,6 @@ projects = [
           <img src="/img/flng-radar.jpg" alt="The Market page of FLNG Radar with live gas prices" width="1600" height="1000" loading="lazy">
           <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
         </dialog>
-        """,
-    ),
-    dict(
-        slug="ai-gtm-toolkit",
-        title="AI tools for go-to-market",
-        meta="Kora Fashion · 2026",
-        summary="A lead engine that finds and qualifies Shopify brands, and a sales platform for the team&rsquo;s calls and follow-ups.",
-        facts=[("Context", "GTM Internship, Kora Fashion (Stockholm, remote)"),
-               ("Period", "Since Jul 2026"),
-               ("Role", "Commercial responsibility for Norway"),
-               ("Company", '<a class="ext" href="https://www.kora.fashion/" target="_blank" rel="noopener">kora.fashion</a>')],
-        body="""
-        <h2>Background</h2>
-        <p>Kora Fashion is an early-stage B2B SaaS start-up founded by two former Meta employees. Daniel Wellington is one of its pilot customers. I joined as the first external hire.</p>
-
-        <figure class="photo">
-          <button class="photo-btn" type="button" aria-label="Show full photo" data-lightbox="kora-visit-full">
-            <img src="/img/kora-visit.jpg" alt="Albert and his brother sitting in front of the Meta logo" width="1000" height="1000" loading="lazy">
-          </button>
-          <figcaption class="mono">With my brother, visiting one of Kora&rsquo;s founders at Meta.</figcaption>
-        </figure>
-        <dialog class="lightbox" id="kora-visit-full" aria-label="Albert and his brother at Meta">
-          <img src="/img/kora-visit-full.jpg" alt="Albert and his brother sitting in front of the Meta logo" width="1170" height="1480" loading="lazy">
-          <button class="lightbox-close mono" type="button" aria-label="Close">Close</button>
-        </dialog>
-
-        <h2>What I do</h2>
-        <p>Kora sells virtual try-on and visualisation that sits on the product page of online stores. Every customer has to run Shopify. I call leads together with a colleague on fixed days each week.</p>
-
-        <h2>The problem</h2>
-        <p>Finding the right companies was slow. Each one had to be checked for Shopify, and then we needed to find who makes the decisions and a number to call. By hand, that took around ten minutes per company.</p>
-
-        <h2>What I built</h2>
-        <p>Two tools. A lead engine in Python finds and qualifies the companies, and a sales platform is where the team does the calling.</p>
-
-        <h2>How it works</h2>
-        <h3>The lead engine</h3>
-        <p>It confirms that a store runs Shopify by looking for at least two independent signs. Then it finds the decision makers and their phone numbers through public company registers in six countries and contact services. It is connected to 10 APIs and runs overnight. One night it found 234 new paint and wallpaper brands around the world.</p>
-        <h3>The sales platform</h3>
-        <p>We log every call, meeting and LinkedIn contact here, against shared daily targets. Before each call it writes an AI opening, and afterwards it drafts the follow-up email. A LinkedIn pipeline tracks each contact from connection to message. New people on the sales team also learn the job on it.</p>
-
-        <h2>Results</h2>
-        <p>The pipeline now holds more than 1,400 qualified brands in 15 markets. We estimate the tools have saved over 200 hours of manual research.</p>
-        <p>I keep developing both tools as we go. The main thing I have learned is that most of sales is preparation, and preparation is something you can build.</p>
-
         """,
     ),
     dict(
